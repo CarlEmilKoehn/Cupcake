@@ -1,0 +1,50 @@
+@startuml
+title Cupcake – Use Case Diagram
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+
+}
+
+actor "Kunde" as Kunde
+actor "Administrator" as Admin
+
+rectangle   {
+  ' --- Use cases (navne matcher US-teksterne tæt) ---
+  usecase "Bestil og betal cupcakes" as UC1
+  usecase "Vælg bund" as UC1a
+  usecase "Vælg top" as UC1b
+  usecase "Betal ordre" as UC1c
+
+  usecase "Oprette kundekonto" as UC2
+  usecase "Se indkøbskurv" as UC4
+  usecase "Log på" as UC5
+  usecase "Se alle ordrer" as UC6
+  usecase "Se alle kunder og deres ordrer" as UC7
+  usecase "Fjerne varer fra indkøbskurv" as UC8
+  usecase "Fjerne ordre" as UC9
+  usecase "Indsætte beløb på kundekonto" as UC3
+}
+
+' --- Associationer ---
+Kunde --> UC1
+Kunde --> UC2
+Kunde --> UC4
+Kunde --> UC5
+Kunde --> UC8
+Kunde --> UC1b
+Kunde --> UC1a
+Kunde --> UC1c
+
+Admin --> UC5
+Admin --> UC6
+Admin --> UC7
+Admin --> UC9
+Admin --> UC3
+
+
+
+
+
+@enduml
