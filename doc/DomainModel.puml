@@ -1,5 +1,112 @@
-@startuml
+
 'https://plantuml.com/sequence-diagram
 
+@startuml
+Class Main
+Exception DatabaseException
+
+
+Package persistence {
+
+Object ConnectionPool
+
+Class ToppingMapper {
+
+}
+
+Class BottomMapper
+
+Class CupcakeMapper
+
+Class OrderMapper
+
+Class UserMapper
+}
+
+Package entities {
+Class User {
+- String username
+- String password
+- String email
+- String role
+- int balance
++ getters()
++ setter()
+}
+
+Class Topping {
+- int toppingId
+- String name
+- int price
++ getters()
++ setter()
+}
+
+Class Bottom {
+- int bottomId
+- String name
+- int price
++ getters()
++ setter()
+}
+
+Class Order {
+- int orderId
+- String customerMail
+- Date purchaseDate
+- int orderHolderId
+- int cupcakeId
+- int cupcakeAmount
+
++ getters()
++ setter()
+
+}
+
+Class Cupcake {
+- int cupcakeId
+- Topping topping
+- Bottom bottom
+- int price
+
++ String toString()
++ getters()
++ setter()
+}
+
+Cupcake *-- Bottom
+Cupcake *-- Topping
+
+}
+
+Package controller {
+Class UserController
+Class CupcakeController
+Class OrderController
+}
+
+Main <|-- UserController
+Main <|-- OrderController
+Main <|-- CupcakeController
+Main <|-- config
+
+CupcakeController <|-- ToppingMapper
+CupcakeController <|-- BottomMapper
+CupcakeController <|-- CupcakeMapper
+UserController <|-- UserMapper
+OrderController <|-- OrderMapper
+
+ToppingMapper *-- Topping
+BottomMapper *-- Bottom
+CupcakeMapper *-- Cupcake
+OrderMapper *-- Order
+UserMapper *-- User
+
+controller <|-- ConnectionPool
+persistence *-- DatabaseException
+
+Package config {
+    Object ThymeleafConfig
+}
 
 @enduml
