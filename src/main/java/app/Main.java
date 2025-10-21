@@ -25,7 +25,8 @@ public class Main
         }).start(7070);
 
         app.get("/", ctx -> ctx.render("cupcake/index.html"));
-        //UserController.addRoutes(app);
+
+        UserController.addRoutes(app);
 
     }
 }
