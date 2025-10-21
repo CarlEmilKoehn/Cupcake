@@ -1,6 +1,4 @@
 package app.entities;
 
-public class User {
-
-
+public class Bottom {
 }
