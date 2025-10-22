@@ -1,6 +1,7 @@
 package app;
 
 import app.config.ThymeleafConfig;
+import app.controllers.OrderController;
 import app.persistence.ConnectionPool;
 import app.controllers.UserController;
 import io.javalin.Javalin;
@@ -27,6 +28,6 @@ public class Main
         app.get("/", ctx -> ctx.render("cupcake/index.html"));
 
         UserController.addRoutes(app);
-
+        OrderController.addRouting(app);
     }
 }
