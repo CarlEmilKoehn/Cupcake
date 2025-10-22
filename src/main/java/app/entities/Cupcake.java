@@ -1,5 +1,5 @@
 package app.entities;
 
-public class Topping {
+public class Cupcake {
 
 }
