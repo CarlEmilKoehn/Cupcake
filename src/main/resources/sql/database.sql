@@ -6,10 +6,10 @@ BEGIN;
 CREATE TABLE IF NOT EXISTS public."user"
 (
     email character varying NOT NULL,
-    "name " character varying NOT NULL,
+    "name" character varying NOT NULL,
     password character varying NOT NULL,
     role character varying NOT NULL,
-    "Balance" integer NOT NULL,
+    "balance" numeric(12,2) NOT NULL,
     PRIMARY KEY (email)
 );
 

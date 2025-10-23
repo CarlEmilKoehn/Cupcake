@@ -15,10 +15,8 @@ public class UserController {
         app.get("/login", ctx -> ctx.render("login.html"));
         app.post("/login", UserController::handleLogin);
 
-        app.get("/logout", ctx -> {
-           ctx.attribute("currentUser", null);
-           ctx.redirect("/");
-        });
+        app.get("/logout", ctx -> ctx.render("login.html"));
+        app.post("/logout", UserController::logout);
     }
 
     private static void handleRegister(Context ctx) throws DatabaseException {
@@ -50,11 +48,16 @@ public class UserController {
         String storedPassword = UserMapper.getPasswordByEmail(email);
 
         if (storedPassword != null && BCrypt.checkpw(password, storedPassword)) {
-            ctx.attribute("currentUser", email);
+            ctx.sessionAttribute("currentUser", email);
             ctx.redirect("/shop");
         } else {
             //TODO tell the user that it was the wrong login.
 
         }
+    }
+
+    private static void logout(Context ctx) {
+        ctx.req().getSession().invalidate();
+        ctx.redirect("/");
     }
 }
