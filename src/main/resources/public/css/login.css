@@ -1,6 +1,18 @@
 html, body {
     margin: 0;
     padding: 0;
+
+    color: #000000;
+    font-family: "La Belle Aurore", cursive;
+
+    overflow: hidden;
+}
+
+input, button {
+    font-family: "La Belle Aurore", cursive;
+    color: #000000;
+
+    overflow: hidden;
 }
 
 body {
@@ -12,12 +24,13 @@ body {
 .site-header {
     width: 100%;
     height: 25vh;
-    background-color: #3c0063;
+    background-color: #3c1460;
     background-position: center;
-    background-size:cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     display: flex;
 
-    background-image: url("public/images/cupcake-banner.png");
+    background-image: url("../resources/public/images/cupcake-banner.png");
 }
 
 .site-body {

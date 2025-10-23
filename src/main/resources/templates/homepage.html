@@ -2,15 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <title>Cupcake</title>
+
     <link rel="stylesheet" href="../public/css/homepage.css">
 
 </head>
 <body>
 <div class="container">
-
-    <div class="background-main"></div>
-    <div class="background-footer"></div>
 
     <img class ="header-img" src="../public/images/cupcake-banner.png" alt="Banner">
 
@@ -49,22 +48,9 @@
 
         <button type="submit" class="add-to-basket">Add To Basket</button>
 
-        <button>Basket</button>
-        <div class="modal" id="modal">
 
-        </div>
     </form>
-
-
 </div>
 
-<script>
-    const form = document.querySelector('form');
-    form.addEventListener('submit', e => {
-        document.getElementById('bottomHidden').value = document.querySelector('[name="bottom_id"]').value;
-        document.getElementById('toppingHidden').value = document.querySelector('[name="topping_id"]').value;
-        document.getElementById('amountHidden').value = document.querySelector('[name="bottom_id"]').value;
-    });
-</script>
 </body>
 </html>

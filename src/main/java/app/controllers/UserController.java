@@ -31,17 +31,16 @@ public class UserController {
 
         //hashing password
         String hashed = BCrypt.hashpw(password, BCrypt.gensalt(12));
-        UserMapper.registerUser(email, username, password);
+        UserMapper.registerUser(email, username, hashed);
         ctx.redirect("/login");
     }
 
     private static void handleLogin(Context ctx) throws DatabaseException{
 
         String email = ctx.formParam("email");
-        String username = ctx.formParam("username");
         String password = ctx.formParam("password");
 
-        if (email == null || username == null || password == null || email.isEmpty() || username.isEmpty() || password.isEmpty()) {
+        if (email == null || password == null || email.isEmpty() || password.isEmpty()) {
             return;
         }
 

@@ -1,15 +1,17 @@
 body {
-    background: white;
+    display: flex;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    font-family: Arial, sans-serif;
 }
 
 .container {
-    width: 1440px;
-    height: 1024px;
-    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
 }
 
 .background-main {
@@ -17,8 +19,8 @@ body {
     height: 579px;
     left: 495px;
     top: 426px;
-    position: absolute;
-    background: #FFDBFA;
+    position: relative;
+    background: #FFC1F7;
     border-radius: 50px;
     border: 1px #AA9CA8 solid;
 }
@@ -35,18 +37,17 @@ body {
 }
 
 .header-img {
-    width: 1440px;
-    height: 284px;
+    width: 100%;
+    height: 25vh;
     left: 0;
     top: 0;
     position: absolute;
 }
 
 .navbar {
-    width: 1408px;
+    width: 100%;
     height: 100px;
-    left: 16px;
-    top: 305px;
+    top: 27%;
     position: absolute;
     background: #FFDBFA;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
@@ -59,13 +60,14 @@ body {
     color: black;
     font-size: 24px;
     font-weight: 400;
+    font-family: "La Belle Aurore", cursive;
     word-wrap: break-word;
 }
 
 .nav-orders { left: 48px; top: 32px; }
 .nav-balance-label { left: 181px; top: 32px; }
 .nav-basket { left: 1276px; top: 32px; }
-.nav-email { left: 938px; top: 32px; font-family: Arial; }
+.nav-email { left: 938px; top: 32px; font-family: "La Belle Aurore"; }
 .nav-balance-box {
     width: 135px;
     height: 32px;

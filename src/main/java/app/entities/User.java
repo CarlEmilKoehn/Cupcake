@@ -3,6 +3,8 @@ package app.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 
@@ -13,7 +15,7 @@ public class User {
     private String password;
     private String role;
 
-    private int balance;
+    private BigDecimal balance;
 
     @Override
     public String toString() {
