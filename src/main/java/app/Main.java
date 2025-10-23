@@ -1,6 +1,7 @@
 package app;
 
 import app.config.ThymeleafConfig;
+import app.controllers.CupcakeController;
 import app.controllers.OrderController;
 import app.persistence.ConnectionPool;
 import app.controllers.UserController;
@@ -25,9 +26,10 @@ public class Main
             config.staticFiles.add("/templates");
         }).start(7070);
 
-        app.get("/", ctx -> ctx.render("cupcake/index.html"));
+        app.get("/", ctx -> ctx.render("cupcake/homepage.html"));
 
         UserController.addRoutes(app);
+        CupcakeController.addRoutes(app);
         OrderController.addRouting(app);
     }
 }

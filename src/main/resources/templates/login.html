@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cupcakes</title>
+    <link rel="stylesheet" href="../public/css/login.css">
+</head>
+<body>
+
+<header class="site-header"></header>
+
+<main class="site-body">
+
+    <div class="login-panel">
+
+        <div class="panel-content">
+            <form id="loginForm" class="login-form" action="/login" method="post">
+                <input type="text" id="username" name="username" placeholder="Email" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+            </form>
+
+            <div class="button-row">
+                <button type="submit" form="loginForm">Login</button>
+                <button type="button" onclick="window.location.href='register.html'">Register</button>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

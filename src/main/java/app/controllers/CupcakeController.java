@@ -8,15 +8,19 @@ import app.persistence.ToppingMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class CupcakeController {
 
     public static void addRoutes(Javalin app) {
 
-        app.get("/homepage", ctx -> showToppings(ctx));
-        app.get("/homepage", ctx -> showBottoms(ctx));
+        app.get("/homepage", ctx -> {
+            showToppings(ctx);
+            showBottoms(ctx);
+            ctx.render("homepage.html");
+        });
+
+        app.post("cupcake/order", CupcakeController::handleOrder);
 
     }
 
@@ -24,16 +28,22 @@ public class CupcakeController {
 
             List<Topping> toppingList = ToppingMapper.getAllToppings();
             ctx.attribute("toppingList", toppingList);
-            //ctx.render() dropdown menu
 
     }
 
-    private static void showBottoms(Context ctx) {
+    private static void showBottoms(Context ctx) throws DatabaseException {
 
             List<Bottom> bottomList = BottomMapper.getAllBottoms();
             ctx.attribute("bottomList", bottomList);
-            //ctx.render() dropdown menu
 
+    }
+
+    private static void handleOrder(Context ctx) throws DatabaseException {
+        int toppingId = Integer.parseInt(ctx.formParam("topping_id"));
+        int bottomId = Integer.parseInt(ctx.formParam("bottom_id"));
+        int amount = Integer.parseInt(ctx.formParam("amount"));
+
+        ctx.result("Order placed: Topping: " + toppingId + ", Bottom: " + bottomId + ", Amount: " + amount);
     }
 
 

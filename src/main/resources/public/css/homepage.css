@@ -1,0 +1,155 @@
+body {
+    background: white;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 1440px;
+    height: 1024px;
+    position: relative;
+}
+
+.background-main {
+    width: 450px;
+    height: 579px;
+    left: 495px;
+    top: 426px;
+    position: absolute;
+    background: #FFDBFA;
+    border-radius: 50px;
+    border: 1px #AA9CA8 solid;
+}
+
+.background-footer {
+    width: 422px;
+    height: 145px;
+    left: 509px;
+    top: 842px;
+    position: absolute;
+    background: #FFC1F7;
+    border-radius: 50px;
+    border: 1px #AA9CA8 solid;
+}
+
+.header-img {
+    width: 1440px;
+    height: 284px;
+    left: 0;
+    top: 0;
+    position: absolute;
+}
+
+.navbar {
+    width: 1408px;
+    height: 100px;
+    left: 16px;
+    top: 305px;
+    position: absolute;
+    background: #FFDBFA;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.navbar-item {
+    position: absolute;
+    color: black;
+    font-size: 24px;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+.nav-orders { left: 48px; top: 32px; }
+.nav-balance-label { left: 181px; top: 32px; }
+.nav-basket { left: 1276px; top: 32px; }
+.nav-email { left: 938px; top: 32px; font-family: Arial; }
+.nav-balance-box {
+    width: 135px;
+    height: 32px;
+    left: 295px;
+    top: 34px;
+    position: absolute;
+    background: #FFE3FF;
+}
+
+.selection-box {
+    width: 100%;
+    height: 96px;
+    background: #FFE5FC;
+    border-radius: 50px;
+    border: 1px #AA9CA8 solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.selection-label {
+    color: black;
+    font-size: 32px;
+    font-family: "La Belle Aurore", cursive;
+    margin-bottom: 5px;
+}
+
+.amount-box { left: 571px; top: 464px; }
+.amount-label { left: 73px; top: 9px; }
+
+.bottom-box { left: 571px; top: 576px; }
+.bottom-label { left: 85px; top: 8px; }
+
+.topping-box { left: 571px; top: 693px; }
+.topping-label { left: 75px; top: 0; }
+
+
+.add-to-basket {
+    background: #FFE5FC;
+    border: 1px solid #AA9CA8;
+    border-radius: 50px;
+    width: 298px;
+    height: 96px;
+    font-size: 40px;
+    font-family: "La Belle Aurore", cursive;
+    color: black;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.add-to-basket:hover {
+    transform: scale(1.05);
+}
+
+.dropdown, .number-input {
+    width: 180px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid #AA9CA8;
+    text-align: center;
+    background: #fff;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+    outline: none;
+}
+
+.number-input {
+    background-color: #FFE5FC;
+}
+
+.number-input:focus {
+    border-color: #FF8BEA;
+    box-shadow: 0 0 10px #FF8BEA;
+}
+
+.order-form {
+    position: absolute;
+    left: 571px;
+    top: 460px;
+    width: 298px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
