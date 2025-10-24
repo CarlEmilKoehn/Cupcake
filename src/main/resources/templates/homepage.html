@@ -2,19 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cupcake</title>
     <link rel="stylesheet" href="../public/css/homepage.css">
+    <link rel="stylesheet" href="../public/css/basketPopup.css">
+
+    <script src="../public/js/basketPopup.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&display=swap" rel="stylesheet">
+
+
 </head>
 <body>
 <header class="header">
     <img src="../public/images/cupcake-banner.png" alt="Banner" class="header-img">
 
     <nav class="navbar">
-        <span>Orders</span>
-        <span>Balance: <input type="text" class="balance-box" readonly></span>
+        <button id="orderBtn" class="navButton">Orders</button>
+        <button id="balanceBtn" class="navButton">Balance</button>
         <span class="email">email@email.com</span>
-        <span>Basket</span>
+        <button id="basketBtn" class="navButton">Basket</button>
     </nav>
+
 </header>
 
 <main class="main">
@@ -45,5 +56,6 @@
         <button type="submit" class="add-btn">Add To Basket</button>
     </form>
 </main>
+
 </body>
 </html>

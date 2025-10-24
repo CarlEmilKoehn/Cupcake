@@ -10,10 +10,14 @@ public class UserController {
 
     public static void addRoutes(Javalin app) {
         app.get("/register", ctx -> ctx.render("register.html"));
-        app.post("/register", UserController::handleRegister);
+        app.post("/register", ctx -> {
+            try {handleRegister(ctx);} catch (Exception e) {ctx.status(500).result("Server error");}
+        });
 
         app.get("/login", ctx -> ctx.render("login.html"));
-        app.post("/login", UserController::handleLogin);
+        app.post("/login", ctx -> {
+            try {handleLogin(ctx);} catch (Exception e) {ctx.status(500).result("Server error");}
+        });
 
         app.get("/logout", ctx -> ctx.render("login.html"));
         app.post("/logout", UserController::logout);
@@ -32,7 +36,7 @@ public class UserController {
         //hashing password
         String hashed = BCrypt.hashpw(password, BCrypt.gensalt(12));
         UserMapper.registerUser(email, username, hashed);
-        ctx.redirect("/login");
+        ctx.redirect("/");
     }
 
     private static void handleLogin(Context ctx) throws DatabaseException{
@@ -48,7 +52,7 @@ public class UserController {
 
         if (storedPassword != null && BCrypt.checkpw(password, storedPassword)) {
             ctx.sessionAttribute("currentUser", email);
-            ctx.redirect("/shop");
+                ctx.render("homepage.html");
         } else {
             //TODO tell the user that it was the wrong login.
 
