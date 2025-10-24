@@ -119,4 +119,30 @@ public class UserMapper {
         }
     }
 
+    public static boolean getEmailExists(String email) throws DatabaseException {
+
+        String sql = "SELECT email FROM user WHERE email = ?";
+
+        try(Connection connection = ConnectionPool.getInstance().getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+
+            try {
+               stmt.setString(1, email);
+
+               ResultSet rs = stmt.executeQuery();
+
+               if (rs.next()) {
+
+                   return rs.getString("email").equals(email);
+               }
+
+            } catch (Exception e) {
+                return false;
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Could not connect to DB: ", e.getMessage());
+        }
+        return false;
+    }
 }

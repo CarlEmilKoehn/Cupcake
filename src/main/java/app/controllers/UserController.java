@@ -33,6 +33,12 @@ public class UserController {
             return;
         }
 
+        if (UserMapper.getEmailExists(email)) {
+            ctx.attribute("Error, user already exists");
+            ctx.render("register.html");
+            return;
+        }
+
         //hashing password
         String hashed = BCrypt.hashpw(password, BCrypt.gensalt(12));
         UserMapper.registerUser(email, username, hashed);
@@ -52,10 +58,10 @@ public class UserController {
 
         if (storedPassword != null && BCrypt.checkpw(password, storedPassword)) {
             ctx.sessionAttribute("currentUser", email);
-                ctx.render("homepage.html");
+                ctx.redirect("/homepage");
         } else {
-            //TODO tell the user that it was the wrong login.
-
+            ctx.attribute("Error, wrong email or password");
+            ctx.render("login.html");
         }
     }
 
