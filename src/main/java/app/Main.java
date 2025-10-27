@@ -26,7 +26,7 @@ public class Main
             config.staticFiles.add("/templates");
         }).start(7070);
 
-        app.get("/", ctx -> ctx.render("/login"));
+        app.get("/", ctx -> ctx.render("login.html"));
 
         UserController.addRoutes(app);
         CupcakeController.addRoutes(app);
