@@ -3,48 +3,30 @@
 BEGIN;
 
 
-CREATE TABLE IF NOT EXISTS public."user"
-(
-    email character varying NOT NULL,
-    "name" character varying NOT NULL,
-    password character varying NOT NULL,
-    role character varying NOT NULL,
-    "balance" numeric(12,2) NOT NULL,
-    PRIMARY KEY (email)
-);
-
-CREATE TABLE IF NOT EXISTS public.toppings
+CREATE TABLE IF NOT EXISTS public.bottom
 (
     id serial NOT NULL,
-    name character varying NOT NULL,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
     price integer NOT NULL,
-    PRIMARY KEY (id)
-);
-
-CREATE TABLE IF NOT EXISTS public.bottoms
-(
-    id serial NOT NULL,
-    name character varying NOT NULL,
-    price integer NOT NULL,
-    PRIMARY KEY (id)
-);
+    CONSTRAINT bottom_pkey PRIMARY KEY (id)
+    );
 
 CREATE TABLE IF NOT EXISTS public.cupcake
 (
     id serial NOT NULL,
-    toppings_id integer NOT NULL,
-    bottoms_id integer NOT NULL,
+    topping_id integer NOT NULL,
+    bottom_id integer NOT NULL,
     cupcake_price integer NOT NULL,
-    PRIMARY KEY (id)
-);
+    CONSTRAINT cupcake_pkey PRIMARY KEY (id)
+    );
 
 CREATE TABLE IF NOT EXISTS public."order"
 (
     id serial NOT NULL,
-    email character varying NOT NULL,
+    email character varying COLLATE pg_catalog."default" NOT NULL,
     date date NOT NULL,
-    PRIMARY KEY (id)
-);
+    CONSTRAINT order_pkey PRIMARY KEY (id)
+    );
 
 CREATE TABLE IF NOT EXISTS public.order_holder
 (
@@ -52,38 +34,56 @@ CREATE TABLE IF NOT EXISTS public.order_holder
     order_id integer NOT NULL,
     cupcake_id integer NOT NULL,
     quantity integer NOT NULL DEFAULT 1,
-    PRIMARY KEY (order_holder_id)
-);
+    CONSTRAINT order_holder_pkey PRIMARY KEY (order_holder_id)
+    );
+
+CREATE TABLE IF NOT EXISTS public.topping
+(
+    id serial NOT NULL,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    price integer NOT NULL,
+    CONSTRAINT topping_pkey PRIMARY KEY (id)
+    );
+
+CREATE TABLE IF NOT EXISTS public."user"
+(
+    email character varying COLLATE pg_catalog."default" NOT NULL,
+    "name " character varying COLLATE pg_catalog."default" NOT NULL,
+    password character varying COLLATE pg_catalog."default" NOT NULL,
+    role character varying COLLATE pg_catalog."default" NOT NULL,
+    "Balance" integer NOT NULL,
+    CONSTRAINT user_pkey PRIMARY KEY (email)
+    );
 
 ALTER TABLE IF EXISTS public.cupcake
-    ADD FOREIGN KEY (toppings_id)
-    REFERENCES public.toppings (id) MATCH SIMPLE
+    ADD CONSTRAINT cupcake_bottom_id_fkey FOREIGN KEY (bottom_id)
+    REFERENCES public.bottom (id) MATCH SIMPLE
     ON UPDATE NO ACTION
-    ON DELETE NO ACTION
+       ON DELETE NO ACTION
     NOT VALID;
 
 
 ALTER TABLE IF EXISTS public.cupcake
-    ADD FOREIGN KEY (bottoms_id)
-    REFERENCES public.bottoms (id) MATCH SIMPLE
+    ADD CONSTRAINT cupcake_topping_id_fkey FOREIGN KEY (topping_id)
+    REFERENCES public.topping (id) MATCH SIMPLE
     ON UPDATE NO ACTION
-    ON DELETE NO ACTION
+       ON DELETE NO ACTION
     NOT VALID;
 
 
 ALTER TABLE IF EXISTS public."order"
-    ADD FOREIGN KEY (email)
+    ADD CONSTRAINT order_email_fkey FOREIGN KEY (email)
     REFERENCES public."user" (email) MATCH SIMPLE
     ON UPDATE NO ACTION
-    ON DELETE NO ACTION
+       ON DELETE NO ACTION
     NOT VALID;
 
 
 ALTER TABLE IF EXISTS public.order_holder
-    ADD FOREIGN KEY (order_id)
+    ADD CONSTRAINT order_holder_order_id_fkey FOREIGN KEY (order_id)
     REFERENCES public."order" (id) MATCH SIMPLE
     ON UPDATE NO ACTION
-    ON DELETE NO ACTION
+       ON DELETE NO ACTION
     NOT VALID;
 
 END;

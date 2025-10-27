@@ -30,7 +30,7 @@ body {
     background-repeat: no-repeat;
     display: flex;
 
-    background-image: url("../resources/public/images/cupcake-banner.png");
+    background-image: url("../images/cupcake-banner.png");
 }
 
 .site-body {

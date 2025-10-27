@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="da" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,21 +14,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&display=swap" rel="stylesheet">
+    <link href="../public/css/homepage.css" th:href="@{/../public/css/homepage.css}" rel="stylesheet" />
 
 
 </head>
 <body>
-<header class="header">
-    <img src="../public/images/cupcake-banner.png" alt="Banner" class="header-img">
-
+<header class="header-img"></header>
     <nav class="navbar">
         <button id="orderBtn" class="navButton">Orders</button>
+        <div class="balance-group">
         <button id="balanceBtn" class="navButton">Balance</button>
+            <span><input type="text" class="balance-box" readonly></span>
+        </div>
         <span class="email">email@email.com</span>
         <button id="basketBtn" class="navButton">Basket</button>
     </nav>
 
-</header>
+
 
 <main class="main">
     <form action="/cupcake/order" method="post" class="order-form">
