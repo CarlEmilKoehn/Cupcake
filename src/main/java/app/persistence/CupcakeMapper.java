@@ -21,10 +21,11 @@ public class CupcakeMapper {
         try(Connection connection = ConnectionPool.getInstance().getConnection()) {
 
             PreparedStatement stmt = connection.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
 
+            ResultSet rs = stmt.executeQuery();
             stmt.setInt(1, toppingId);
             stmt.setInt(2, bottomId);
+
 
             if(rs.next()) {
                 int cupcakeId = rs.getInt("id");
