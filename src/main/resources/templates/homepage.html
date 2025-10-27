@@ -39,18 +39,20 @@
         <div class="form-group">
             <label for="bottom">Bottom</label>
             <select name="bottom_id" id="bottom">
-                {% for bottom in bottomList %}
-                <option value="{{ bottom.id }}">{{ bottom.name }} - {{ bottom.price }}</option>
-                {% endfor %}
+                <option th:each="bottom : ${bottomList}"
+                        th:value="${bottom.name}"
+                        th:text="${bottom.name} + ' - ' + ${bottom.price} + 'dkk'">
+                </option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="topping">Topping</label>
             <select name="topping_id" id="topping">
-                {% for topping in toppingList %}
-                <option value="{{ topping.id }}">{{ topping.name }} - {{ topping.price }}</option>
-                {% endfor %}
+                <option th:each="topping : ${toppingList}"
+                        th:value="${topping.name}"
+                        th:text="${topping.name} + ' - ' + ${topping.price} + 'dkk'">
+                </option>
             </select>
         </div>
 

@@ -34,41 +34,41 @@ public class ToppingMapper {
                 toppingList.add(new Topping(toppingId, name, price));
 
             }
+            System.out.println("fejl");
+            return toppingList;
 
         } catch (SQLException e) {
             throw new DatabaseException("Could not connect to DB: ", e.getMessage());
         }
 
-        return toppingList;
+
+
 
     }
 
-    public static Topping getToppingFromId(int id) throws DatabaseException {;
-
+    public static Topping getToppingFromId(int id) throws DatabaseException {
         String sql = "SELECT name, price FROM topping WHERE id = ?";
 
-        try(Connection connection = ConnectionPool.getInstance().getConnection()) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, id);
 
-            ResultSet rs = stmt.executeQuery();
-
-            while(rs.next()) {
-
-                String name = rs.getString("name");
-                int price = rs.getInt("price");
-
-                return new Topping(id, name, price);
-
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    String name = rs.getString("name");
+                    int price = rs.getInt("price");
+                    return new Topping(id, name, price);
+                }
             }
 
         } catch (SQLException e) {
-            throw new DatabaseException("Could not connect to DB: ", e.getMessage());
+            throw new DatabaseException("Could not connect to DB: " + e.getMessage());
         }
 
         return null;
-
     }
+
 
 
 }
