@@ -25,7 +25,7 @@
 
             <div class="button-row">
                 <button type="submit" form="loginForm">Login</button>
-                <button type="button" onclick="window.location.href='register.html'">Register</button>
+                <button type="button" onclick="window.location.href='/register'" th:onclick="|window.location.href='@{/register}'|">Register</button>
             </div>
         </div>
     </div>

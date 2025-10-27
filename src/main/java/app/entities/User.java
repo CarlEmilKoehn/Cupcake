@@ -15,7 +15,7 @@ public class User {
     private String password;
     private String role;
 
-    private BigDecimal balance;
+    private int balance;
 
     @Override
     public String toString() {

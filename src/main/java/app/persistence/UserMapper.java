@@ -1,9 +1,7 @@
 package app.persistence;
 
-import app.entities.User;
 import app.exceptions.DatabaseException;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,26 +10,20 @@ import java.sql.SQLException;
 public class UserMapper {
 
     public static void registerUser(String userEmail, String username, String passwordHash) throws DatabaseException {
-
-        String sql = "INSERT INTO user (userEmail, name, password, role, balance) VALUES (?, ?, ?, ?, ?)";
-
-        try(Connection connection = ConnectionPool.getInstance().getConnection()) {
-
+        String sql = "INSERT INTO public.\"user\" (email, name, password, role, \"Balance\") VALUES (?, ?, ?, ?, ?)";
+        try (Connection connection = ConnectionPool.getInstance().getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(sql);
-
             stmt.setString(1, userEmail);
             stmt.setString(2, username);
             stmt.setString(3, passwordHash);
-
             stmt.setString(4, "customer");
-            stmt.setBigDecimal(5, BigDecimal.ZERO);
-
+            stmt.setInt(5, 0);
             stmt.executeUpdate();
-
         } catch (SQLException e) {
             throw new DatabaseException("Could not connect to DB: ", e.getMessage());
         }
     }
+
 
     public static String getPasswordByEmail(String email) throws DatabaseException {
 
@@ -56,7 +48,7 @@ public class UserMapper {
         return null;
     }
 
-    public static BigDecimal getBalanceByEmail(String email) throws DatabaseException {
+    public static int getBalanceByEmail(String email) throws DatabaseException {
 
         String sql = "SELECT balance FROM user WHERE email = ?";
 
@@ -69,27 +61,27 @@ public class UserMapper {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                return rs.getBigDecimal("balance");
+                return rs.getInt("balance");
             }
 
         } catch (SQLException e) {
             throw new DatabaseException("Could not connect to DB: ", e.getMessage());
         }
 
-        return BigDecimal.ZERO;
+        return 0;
     }
 
-    public static void plusBalanceByEmail(String email, BigDecimal plusValue) throws DatabaseException {
+    public static void plusBalanceByEmail(String email, int plusValue) throws DatabaseException {
 
         String sql = "UPDATE user SET balance = balance + ? WHERE email = ?";
 
         try(Connection connection = ConnectionPool.instance.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(sql);
 
-            BigDecimal oldBalance = getBalanceByEmail(email);
-            BigDecimal newBalance = oldBalance.add(plusValue);
+            int oldBalance = getBalanceByEmail(email);
+            int newBalance = oldBalance + plusValue;
 
-            stmt.setBigDecimal(1, newBalance);
+            stmt.setInt(1, newBalance);
             stmt.setString(2, email);
 
             stmt.executeUpdate();
@@ -99,17 +91,17 @@ public class UserMapper {
         }
     }
 
-    public static void minusBalanceByEmail(String email, BigDecimal minusValue) throws DatabaseException {
+    public static void minusBalanceByEmail(String email, int minusValue) throws DatabaseException {
 
         String sql = "UPDATE user SET balance = balance - ? WHERE email = ?";
 
         try(Connection connection = ConnectionPool.instance.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(sql);
 
-            BigDecimal oldBalance = getBalanceByEmail(email);
-            BigDecimal newBalance = oldBalance.subtract(minusValue);
+            int oldBalance = getBalanceByEmail(email);
+            int newBalance = oldBalance - minusValue;
 
-            stmt.setBigDecimal(1, newBalance);
+            stmt.setInt(1, newBalance);
             stmt.setString(2, email);
 
             stmt.executeUpdate();

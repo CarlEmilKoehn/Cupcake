@@ -23,7 +23,6 @@ public class Main
         Javalin app = Javalin.create(config -> {
             config.staticFiles.add("/public");
             config.fileRenderer(new JavalinThymeleaf(ThymeleafConfig.templateEngine()));
-            config.staticFiles.add("/templates");
         }).start(7070);
 
         app.get("/", ctx -> ctx.render("login.html"));
