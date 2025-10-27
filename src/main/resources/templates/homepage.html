@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/public/css/register.css" th:href="@{/css/register.css}"/>
+    <link rel="stylesheet" href="/public/css/homepage.css" th:href="@{/css/homepage.css}"/>
 
 </head>
 <body>
@@ -39,18 +39,20 @@
         <div class="form-group">
             <label for="bottom">Bottom</label>
             <select name="bottom_id" id="bottom">
-                {% for bottom in bottomList %}
-                <option value="{{ bottom.id }}">{{ bottom.name }} - {{ bottom.price }}</option>
-                {% endfor %}
+                <option th:each="bottom : ${bottomList}"
+                        th:value="${bottom.name}"
+                        th:text="${bottom.name} + ' - ' + ${bottom.price} + 'dkk'">
+                </option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="topping">Topping</label>
             <select name="topping_id" id="topping">
-                {% for topping in toppingList %}
-                <option value="{{ topping.id }}">{{ topping.name }} - {{ topping.price }}</option>
-                {% endfor %}
+                <option th:each="topping : ${toppingList}"
+                        th:value="${topping.name}"
+                        th:text="${topping.name} + ' - ' + ${topping.price} + 'dkk'">
+                </option>
             </select>
         </div>
 

@@ -15,8 +15,7 @@ public class CupcakeController {
     public static void addRoutes(Javalin app) {
 
         app.get("/homepage", ctx -> {
-            showToppings(ctx);
-            showBottoms(ctx);
+            showToppingsAndBottoms(ctx);
             ctx.render("homepage.html");
         });
 
@@ -24,19 +23,14 @@ public class CupcakeController {
 
     }
 
-    private static void showToppings(Context ctx) throws DatabaseException {
-
+    private static void showToppingsAndBottoms(Context ctx) throws DatabaseException {
         List<Topping> toppingList = ToppingMapper.getAllToppings();
-        ctx.attribute("toppingList", toppingList);
-
-    }
-
-    private static void showBottoms(Context ctx) throws DatabaseException {
-
         List<Bottom> bottomList = BottomMapper.getAllBottoms();
-        ctx.attribute("bottomList", bottomList);
 
+        ctx.attribute("toppingList", toppingList);
+        ctx.attribute("bottomList", bottomList);
     }
+
 
     private static void handleOrder(Context ctx) throws DatabaseException {
         int toppingId = Integer.parseInt(ctx.formParam("topping_id"));
