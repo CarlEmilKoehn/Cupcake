@@ -26,7 +26,11 @@
 
     <nav class="navbar">
         <button id="orderBtn" class="navButton">Orders</button>
-        <button id="balanceBtn" class="navButton">Balance</button>
+
+        <div class="balance-group">
+            <button id="balanceBtn" class="navButton">Balance</button>
+            <span><input type="text" class="balance-box" readonly></span>
+        </div>
 
         <span th:text="${session.currentUser.email}">email@example.com</span>
 
