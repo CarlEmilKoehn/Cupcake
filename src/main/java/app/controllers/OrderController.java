@@ -18,5 +18,6 @@ public class OrderController {
             ctx.attribute("orders", orders);
         });
 
+        app.get("/payment", ctx -> ctx.render("payment.html"));
     }
 }

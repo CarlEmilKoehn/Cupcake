@@ -9,10 +9,12 @@
     <link rel="stylesheet" href="/public/css/basketPopup.css" th:href="@{/css/basketPopup.css}"/>
     <link rel="stylesheet" href="/public/css/orderPopup.css" th:href="@{/css/orderPopup.css}"/>
     <link rel="stylesheet" href="/public/css/balancePopup.css" th:href="@{/css/balancePopup.css}"/>
+    <link rel="stylesheet" href="/public/css/payment.css" th:href="@{/css/payment.css}"/>
 
     <script defer th:src="@{/js/basketPopup.js}"></script>
     <script defer th:src="@{/js/orderPopup.js}"></script>
     <script defer th:src="@{/js/balancePopup.js}"></script>
+    <script defer th:src="@{/js/payment.js}"></script>
 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -115,7 +117,7 @@
             <p>Balance is empty.</p>
         </div>
         <footer class="balance-modal__footer">
-            <a href="payment.html" class="balance-modal__btn balance-modal__btn--primary">Add balance.</a>
+            <a href="/payment" class="balance-modal__btn balance-modal__btn--primary">Add balance.</a>
         </footer>
     </div>
 </div>
