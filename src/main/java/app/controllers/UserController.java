@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.entities.User;
 import app.exceptions.DatabaseException;
 import app.persistence.UserMapper;
 import io.javalin.Javalin;
@@ -10,10 +11,14 @@ public class UserController {
 
     public static void addRoutes(Javalin app) {
         app.get("/register", ctx -> ctx.render("register.html"));
-        app.post("/register", UserController::handleRegister);
+        app.post("/register", ctx -> {
+            try {handleRegister(ctx);} catch (Exception e) {ctx.status(500).result("Server error");}
+        });
 
         app.get("/login", ctx -> ctx.render("login.html"));
-        app.post("/login", UserController::handleLogin);
+        app.post("/login", ctx -> {
+            try {handleLogin(ctx);} catch (Exception e) {ctx.status(500).result("Server error");}
+        });
 
         app.get("/logout", ctx -> ctx.render("login.html"));
         app.post("/logout", UserController::logout);
@@ -29,35 +34,41 @@ public class UserController {
             return;
         }
 
+        if (UserMapper.getEmailExists(email)) {
+            ctx.attribute("Error, user already exists");
+            ctx.render("register.html");
+            return;
+        }
+
         //hashing password
         String hashed = BCrypt.hashpw(password, BCrypt.gensalt(12));
-        UserMapper.registerUser(email, username, password);
-        ctx.redirect("/login");
+        UserMapper.registerUser(email, username, hashed);
+        ctx.redirect("/");
     }
 
     private static void handleLogin(Context ctx) throws DatabaseException{
 
         String email = ctx.formParam("email");
-        String username = ctx.formParam("username");
         String password = ctx.formParam("password");
 
-        if (email == null || username == null || password == null || email.isEmpty() || username.isEmpty() || password.isEmpty()) {
+        if (email == null || password == null || email.isEmpty() || password.isEmpty()) {
             return;
         }
 
         String storedPassword = UserMapper.getPasswordByEmail(email);
 
         if (storedPassword != null && BCrypt.checkpw(password, storedPassword)) {
-            ctx.sessionAttribute("currentUser", email);
-            ctx.redirect("/shop");
+            User user = UserMapper.getUserByEmail(email);
+            ctx.sessionAttribute("currentUser", user);
+                ctx.redirect("/homepage");
         } else {
-            //TODO tell the user that it was the wrong login.
-
+            ctx.attribute("Error, wrong email or password");
+            ctx.render("login.html");
         }
     }
 
     private static void logout(Context ctx) {
         ctx.req().getSession().invalidate();
-        ctx.redirect("/");
+        ctx.redirect("/login");
     }
 }
