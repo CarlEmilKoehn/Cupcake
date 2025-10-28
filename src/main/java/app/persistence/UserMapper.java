@@ -1,5 +1,6 @@
 package app.persistence;
 
+import app.entities.User;
 import app.exceptions.DatabaseException;
 
 import java.sql.Connection;
@@ -136,5 +137,36 @@ public class UserMapper {
             throw new DatabaseException("Could not connect to DB: ", e.getMessage());
         }
         return false;
+    }
+
+    public static User getUserByEmail(String email) throws DatabaseException {
+
+        User user;
+
+        String sql = "SELECT * FROM public.\"user\" WHERE email = ?";
+
+        try(Connection connection = ConnectionPool.getInstance().getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setString(1, email);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+
+                String username = rs.getString("name");
+                String password = rs.getString("password");
+                String role = rs.getString("role");
+                int balance = rs.getInt("balance");
+
+                user = new User(email, username, password, role, balance);
+
+                return user;
+            }
+
+            return null;
+        } catch (SQLException e) {
+            throw new DatabaseException("Could not connect to DB: ", e.getMessage());
+        }
     }
 }

@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.entities.User;
 import app.exceptions.DatabaseException;
 import app.persistence.UserMapper;
 import io.javalin.Javalin;
@@ -57,7 +58,8 @@ public class UserController {
         String storedPassword = UserMapper.getPasswordByEmail(email);
 
         if (storedPassword != null && BCrypt.checkpw(password, storedPassword)) {
-            ctx.sessionAttribute("currentUser", email);
+            User user = UserMapper.getUserByEmail(email);
+            ctx.sessionAttribute("currentUser", user);
                 ctx.redirect("/homepage");
         } else {
             ctx.attribute("Error, wrong email or password");
@@ -67,6 +69,6 @@ public class UserController {
 
     private static void logout(Context ctx) {
         ctx.req().getSession().invalidate();
-        ctx.redirect("/");
+        ctx.redirect("/login");
     }
 }
