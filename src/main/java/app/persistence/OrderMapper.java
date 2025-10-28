@@ -53,4 +53,34 @@ public class OrderMapper {
             throw new DatabaseException("Could not connect to DB: ", e.getMessage());
         }
     }
+
+    public static void createOrder(String userEmail, Date date) throws DatabaseException {
+        String sql = "INSERT INTO public.\"order\" (email, date) VALUES (?, ?)";
+
+        try(Connection connection = ConnectionPool.getInstance().getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, userEmail);
+            stmt.setDate(2, date);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new DatabaseException("Could not connect to DB" + e.getMessage());
+        }
+    }
+
+    public static void putInOrderHolder(int orderId, int cupcakeId, int cupcakeAmount) throws DatabaseException {
+        String sql = "INSERT INTO public.\"order_holder\" (order_id, cupcake_id, quantity) VALUES (?, ?, ?)";
+        try(Connection connection = ConnectionPool.getInstance().getConnection()){
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1,orderId);
+            stmt.setInt(2, cupcakeId);
+            stmt.setInt(3, cupcakeAmount);
+            stmt.executeUpdate();
+        }
+        catch (SQLException e){
+            throw new DatabaseException("Could not connect to DB" + e.getMessage());
+        }
+
+
+    }
 }

@@ -11,7 +11,7 @@ public class Order {
 
     private int orderId;
     private String customerMail;
-    private Date purchaceDate;
+    private Date purchaseDate;
     private int orderHolderId;
     private int cupcakeId;
     private int cupcakePrice;
@@ -23,7 +23,7 @@ public class Order {
         return "Order:" +
                 "orderId=" + orderId +
                 ",customerMail='" + customerMail +
-                ",purchaseDate=" + purchaceDate +
+                ",purchaseDate=" + purchaseDate +
                 ", orderHolderId=" + orderHolderId +
                 ", cupcakePrice=" + cupcakePrice +
                 ", cupcakeId=" + cupcakeId +
