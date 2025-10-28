@@ -29,7 +29,10 @@
 
         <div class="balance-group">
             <button id="balanceBtn" class="navButton">Balance</button>
-            <span><input type="text" class="balance-box" readonly></span>
+
+            <input type="balance" class="balance-box" name="balance"
+                   th:value="${session.currentUser.balance}" readonly >
+
         </div>
 
         <span th:text="${session.currentUser.email}">email@example.com</span>
