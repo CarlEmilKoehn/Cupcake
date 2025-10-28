@@ -1,0 +1,85 @@
+html, body {
+    margin: 0;
+    padding: 0;
+
+    color: #000000;
+    font-family: "La Belle Aurore", cursive;
+
+    overflow: hidden;
+}
+
+input, button {
+    font-family: "La Belle Aurore", cursive;
+    color: #000000;
+
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #fce0f5;
+}
+
+.site-header {
+    width: 100%;
+    height: 25vh;
+    background-color: #3c1460;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: flex;
+
+    background-image: url("../images/cupcake-banner.png");
+}
+
+.site-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3vh 4vw;
+}
+
+input {
+    font-size: 1rem;
+    padding: 3vh 3vw;
+    border: 1px solid #cccccc;
+    background:#f7cdea;
+}
+
+button {
+    font-size: 1rem;
+    padding: 6vh 9vw;
+    border: 1px solid #cccccc;
+}
+
+.button-row{
+    margin-top:auto; width:100%;
+    display:flex;
+    justify-content:space-between;
+}
+
+.button-row button{
+    width:22%;
+    font-size:1rem; padding:6vh 6vw;
+    border:1px solid #b989b5;
+    background:#e3a3ce; cursor:pointer;
+}
+
+.login-panel{
+    width:92%; margin:3vh auto; padding:3vh 4vw;
+    background:#ffd6f1; border-radius:2vh; outline:.4vh solid #e8e8e8;
+    display:flex; flex-direction:column; gap:3vh;
+}
+
+.panel-content{
+    display:flex;
+    flex-direction:column;
+    min-height:60vh;
+}
+
+.login-form{
+    display:flex;
+    flex-direction:column; gap:2vh;
+    width:30%;
+}

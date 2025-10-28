@@ -1,0 +1,155 @@
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+    font-family: "La Belle Aurore", cursive;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+
+.header-img {
+    width: 100%;
+    height: 25vh;
+    position: relative;
+    background-color: #3c1460;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: flex;
+
+    background-image: url("../images/cupcake-banner.png");
+}
+
+.navbar {
+    width: 90%;
+    margin: 1rem auto;
+    background: #FFDBFA;
+    border-radius: 50px;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.25);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.5%;
+    flex-wrap: wrap;
+    font-size: 120%;
+    font-family: La Belle Aurore, cursive;
+}
+
+.balance-group{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    gap: 5%
+}
+
+.balance-box {
+    width: 100px;
+    border: none;
+    border-radius: 10px;
+    background: #FFE3FF;
+    text-align: center;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.order-form {
+    background: #FFC1F7;
+    border: 1px solid #AA9CA8;
+    border-radius: 50px;
+    padding: 2rem;
+    max-width: 400px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    width: 100%;
+    text-align: center;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group select {
+    width: 80%;
+    padding: 0.5rem;
+    border-radius: 20px;
+    border: 1px solid #AA9CA8;
+    background: #FFE5FC;
+    font-size: 100%;
+    text-align: center;
+    font-family: "Times New Roman"
+}
+
+.add-btn {
+    width: 80%;
+    padding: 5%;
+    font-size: 200%;
+    background: #FFE5FC;
+    border: 1px solid #AA9CA8;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: La Belle Aurore, cursive;
+    transition: transform 0.2s ease;
+}
+
+.navButton{
+    padding: 0.5%;
+    font-size: 100%;
+    border-radius: 50px;
+    background: #FFDBFA;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    color: black;
+    font-family: La Belle Aurore, cursive;
+}
+
+.navButton:hover{
+    transform: scale(1.02);
+}
+
+.add-btn:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 50%;
+        text-align: center;
+        font-family: La Belle Aurore, cursive   ;
+    }
+
+    .order-form {
+        padding: 1.5rem;
+    }
+
+    .form-group label {
+        font-size: 150%;
+    }
+
+    .add-btn {
+        font-size: 100%;
+    }
+}

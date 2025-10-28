@@ -1,6 +1,7 @@
 package app;
 
 import app.config.ThymeleafConfig;
+import app.controllers.CupcakeController;
 import app.controllers.OrderController;
 import app.persistence.ConnectionPool;
 import app.controllers.UserController;
@@ -22,12 +23,12 @@ public class Main
         Javalin app = Javalin.create(config -> {
             config.staticFiles.add("/public");
             config.fileRenderer(new JavalinThymeleaf(ThymeleafConfig.templateEngine()));
-            config.staticFiles.add("/templates");
         }).start(7070);
 
-        app.get("/", ctx -> ctx.render("cupcake/index.html"));
+        app.get("/", ctx -> ctx.render("login.html"));
 
         UserController.addRoutes(app);
+        CupcakeController.addRoutes(app);
         OrderController.addRouting(app);
     }
 }

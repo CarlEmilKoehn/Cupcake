@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Betaling</title>
+    <link rel="stylesheet" href="/public/css/payment.css" th:href="@{/css/payment.css}"/>
+    <script defer th:src="@{/js/payment.js}"></script>
+</head>
+<body>
+<div class="pay-wrap">
+    <h1 class="pay-header">Vælg betalingsmetode</h1>
+
+    <section class="pay-methods">
+        <article class="pay-card" id="mpp">
+            <h3>MobilePay</h3>
+            <div class="row">
+                <input type="tel" id="mpPhone" placeholder="Telefonnummer (8 cifre)">
+            </div>
+            <div class="pay-actions">
+                <button class="btn btn-primary" id="mpPayBtn">Betal</button>
+            </div>
+        </article>
+        <article class="pay-card" id="card">
+            <h3>Kort</h3>
+            <div class="row">
+                <input type="text" id="ccNumber" placeholder="Kortnummer (16 cifre)">
+            </div>
+            <div class="row row-2">
+                <input type="text" id="ccExpiry" placeholder="Udløb (MM/YY)">
+                <input type="text" id="ccCvv" placeholder="CVV (3 cifre)">
+            </div>
+            <div class="pay-actions">
+                <button class="btn btn-primary" id="cardPayBtn">Betal</button>
+            </div>
+        </article>
+    </section>
+
+    <div class="pay-actions">
+        <a class="btn" href="homepage.html">Tilbage</a>
+    </div>
+</div>
+
+</body>
+</html>
