@@ -5,6 +5,7 @@ import app.exceptions.DatabaseException;
 import app.persistence.UserMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+import org.jetbrains.annotations.NotNull;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class UserController {
@@ -22,6 +23,15 @@ public class UserController {
 
         app.get("/logout", ctx -> ctx.render("login.html"));
         app.post("/logout", UserController::logout);
+
+        app.get("/admin", ctx -> ctx.render("adminView.html"));
+        app.post("/admin", ctx -> {
+           try {handleAdminViewAllOrders(ctx);} catch (Exception e) {ctx.status(500).result("Server error");}
+        });
+    }
+
+    private static void handleAdminViewAllOrders (Context ctx) {
+
     }
 
     private static void handleRegister(Context ctx) throws DatabaseException {
@@ -60,7 +70,13 @@ public class UserController {
         if (storedPassword != null && BCrypt.checkpw(password, storedPassword)) {
             User user = UserMapper.getUserByEmail(email);
             ctx.sessionAttribute("currentUser", user);
-                ctx.redirect("/homepage");
+
+            if (user != null && user.getRole().equalsIgnoreCase("admin")) {
+                ctx.redirect("/homepageAdmin");
+                return;
+            }
+
+            ctx.redirect("/homepage");
         } else {
             ctx.attribute("Error, wrong email or password");
             ctx.render("login.html");
