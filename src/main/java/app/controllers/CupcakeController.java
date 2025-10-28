@@ -19,7 +19,7 @@ public class CupcakeController {
             ctx.render("homepage.html");
         });
 
-        app.post("cupcake/order", CupcakeController::handleOrder);
+        app.post("/cupcake/order", CupcakeController::handleOrder);
 
     }
 
