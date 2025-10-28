@@ -1,9 +1,9 @@
 
 document.addEventListener('DOMContentLoaded', function () {
-    var openBtn = document.getElementById('orderBtn');
-    var modal = document.getElementById('orderModal');
-    var backdrop = modal ? modal.querySelector('.order-modal__backdrop') : null;
-    var closeBtn = modal ? modal.querySelector('.order-modal__close') : null;
+    var openBtn = document.getElementById('balanceBtn');
+    var modal = document.getElementById('balanceModal');
+    var backdrop = modal ? modal.querySelector('.balance-modal__backdrop') : null;
+    var closeBtn = modal ? modal.querySelector('.balance-modal__close') : null;
 
     if (!openBtn || !modal) return;
 

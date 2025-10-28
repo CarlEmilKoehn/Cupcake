@@ -1,0 +1,22 @@
+
+.pay-wrap { max-width: 640px; margin: 40px auto; padding: 20px; background: #fff; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.08) }
+
+.pay-header { margin-bottom: 16px; }
+
+.pay-methods { display: grid; gap: 12px; }
+
+.pay-card { border: 1px solid #eee; border-radius: 10px; padding: 16px; background: #fafafa }
+
+.pay-actions { margin-top: 16px; display: flex; gap: 10px; }
+
+.btn { padding: 10px 14px; border-radius: 8px; border: 1px solid #ddd; background: #fff; cursor: pointer }
+
+.btn-primary { background: #3c1460; color: #fff; border-color: #3c1460 }
+
+.hint { color: #666; font-size: .9rem; margin-top: 6px }
+
+.row { display: grid; gap: 8px; }
+
+.row-2 { grid-template-columns: 1fr 1fr; }
+
+input, select { padding: 10px; border: 1px solid #ddd; border-radius: 8px; }

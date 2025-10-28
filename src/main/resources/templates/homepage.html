@@ -6,8 +6,15 @@
     <title>Cupcake</title>
     <link rel="stylesheet" href="../public/css/homepage.css">
     <link rel="stylesheet" href="../public/css/basketPopup.css">
+    <link rel="stylesheet" href="../public/css/orderPopup.css">
+    <link rel="stylesheet" href="../public/css/balancePopup.css">
 
-    <script src="../public/js/basketPopup.js"></script>
+
+    <script src="../public/js/basketPopup.js" defer></script>
+    <script src="../public/js/orderPopup.js" defer></script>
+    <script src="../public/js/balancePopup.js" defer></script>
+
+
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,18 +23,17 @@
 
 </head>
 <body>
-<header class="header-img"></header>
+<header class="header">
+    <img src="../public/images/cupcake-banner.png" alt="Banner" class="header-img">
+
     <nav class="navbar">
         <button id="orderBtn" class="navButton">Orders</button>
-        <div class="balance-group">
         <button id="balanceBtn" class="navButton">Balance</button>
-            <span><input type="text" class="balance-box" readonly></span>
-        </div>
         <span class="email">email@email.com</span>
         <button id="basketBtn" class="navButton">Basket</button>
     </nav>
 
-
+</header>
 
 <main class="main">
     <form action="/cupcake/order" method="post" class="order-form">
@@ -60,5 +66,49 @@
     </form>
 </main>
 
+<div id="basketModal" class="basket-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="basket-modal__backdrop" data-close></div>
+    <div class="basket-modal__dialog" role="document">
+        <header class="basket-modal__header">
+            <h2>Your Basket</h2>
+            <button class="basket-modal__close" aria-label="Luk" data-close>&times;</button>
+        </header>
+        <div class="basket-modal__content">
+            <p>Basket is empty.</p>
+        </div>
+        <footer class="basket-modal__footer">
+            <a href="/cupcake/order" class="basket-modal__btn basket-modal__btn--primary">Go to checkout</a>
+        </footer>
+    </div>
+</div>
+<div id="orderModal" class="basket-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="order-modal__backdrop" data-close></div>
+    <div class="order-modal__dialog" role="document">
+        <header class="order-modal__header">
+            <h2>Your orders</h2>
+            <button class="order-modal__close" aria-label="Luk" data-close>&times;</button>
+        </header>
+        <div class="order-modal__content">
+            <p>No orders.</p>
+        </div>
+        <footer class="order-modal__footer">
+        </footer>
+    </div>
+</div>
+<div id="balanceModal" class="balance-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="balance-modal__backdrop" data-close></div>
+    <div class="balance-modal__dialog" role="document">
+        <header class="balance-modal__header">
+            <h2>Your balance.</h2>
+            <button class="balance-modal__close" aria-label="Luk" data-close>&times;</button>
+        </header>
+        <div class="balance-modal__content">
+            <p>Balance is empty.</p>
+        </div>
+        <footer class="balance-modal__footer">
+            <a href="payment.html" class="balance-modal__btn balance-modal__btn--primary">Add balance.</a>
+        </footer>
+    </div>
+</div>
 </body>
 </html>

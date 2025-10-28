@@ -1,0 +1,18 @@
+
+.basket-modal { position: fixed; inset: 0; display: none; }
+
+.basket-modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.4); }
+
+.basket-modal__dialog { position: relative; margin: 6vh auto; max-width: 520px; background: #fff; border-radius: 8px; overflow: hidden; }
+
+.basket-modal__header,.basket-modal__footer{padding:12px 16px;background:#f6f6f6}
+
+.basket-modal__content{padding:16px}
+
+.basket-modal__close{background:none;border:0;font-size:24px;cursor:pointer;margin-left:auto}
+
+.basket-modal__header{display:flex;align-items:center;gap:8px}
+
+.basket-modal__btn{padding:8px 12px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer}
+
+.basket-modal__btn--primary{background:#3c1460;color:#fff;border-color:#3c1460;text-decoration:none}
