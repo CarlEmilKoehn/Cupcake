@@ -24,14 +24,6 @@ public class UserController {
         app.get("/logout", ctx -> ctx.render("login.html"));
         app.post("/logout", UserController::logout);
 
-        app.get("/admin", ctx -> ctx.render("adminView.html"));
-        app.post("/admin", ctx -> {
-           try {handleAdminViewAllOrders(ctx);} catch (Exception e) {ctx.status(500).result("Server error");}
-        });
-    }
-
-    private static void handleAdminViewAllOrders (Context ctx) {
-
     }
 
     private static void handleRegister(Context ctx) throws DatabaseException {
@@ -72,11 +64,12 @@ public class UserController {
             ctx.sessionAttribute("currentUser", user);
 
             if (user != null && user.getRole().equalsIgnoreCase("admin")) {
-                ctx.redirect("/homepageAdmin");
+                ctx.redirect("/admin");
                 return;
             }
 
             ctx.redirect("/homepage");
+
         } else {
             ctx.attribute("Error, wrong email or password");
             ctx.render("login.html");

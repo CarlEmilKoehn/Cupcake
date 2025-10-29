@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserMapper {
 
@@ -79,10 +81,7 @@ public class UserMapper {
         try(Connection connection = ConnectionPool.instance.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(sql);
 
-            int oldBalance = getBalanceByEmail(email);
-            int newBalance = oldBalance + plusValue;
-
-            stmt.setInt(1, newBalance);
+            stmt.setInt(1, plusValue);
             stmt.setString(2, email);
 
             stmt.executeUpdate();
@@ -99,10 +98,7 @@ public class UserMapper {
         try(Connection connection = ConnectionPool.instance.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(sql);
 
-            int oldBalance = getBalanceByEmail(email);
-            int newBalance = oldBalance - minusValue;
-
-            stmt.setInt(1, newBalance);
+            stmt.setInt(1, minusValue);
             stmt.setString(2, email);
 
             stmt.executeUpdate();
@@ -165,6 +161,35 @@ public class UserMapper {
             }
 
             return null;
+        } catch (SQLException e) {
+            throw new DatabaseException("Could not connect to DB: ", e.getMessage());
+        }
+    }
+
+    public static List<User> getAllUsers() throws DatabaseException {
+
+        List<User> users = new ArrayList<>();
+
+        String sql = "SELECT * FROM public.\"user\"";
+        try(Connection connection = ConnectionPool.getInstance().getConnection()) {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+
+                String email = rs.getString("email");
+                String username = rs.getString("name");
+                String password = rs.getString("password");
+                String role = rs.getString("role");
+                int balance = rs.getInt("balance");
+
+                if (!role.trim().equalsIgnoreCase("admin")) {
+                    users.add(new User(email, username, password, role, balance));
+                }
+            }
+
+            return users;
         } catch (SQLException e) {
             throw new DatabaseException("Could not connect to DB: ", e.getMessage());
         }
