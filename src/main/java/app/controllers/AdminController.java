@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.entities.User;
 import app.exceptions.DatabaseException;
+import app.persistence.OrderMapper;
 import app.persistence.UserMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
@@ -17,17 +18,31 @@ public class AdminController {
 
 
         app.get("/admin", ctx -> {
-            ctx.attribute("customers", UserMapper.getAllUsers()); // din filtrerende metode
+            ctx.attribute("customers", UserMapper.getAllUsers());
             ctx.render("homepageAdmin.html");
         });
 
-        app.post("/admin/balance/insert", AdminController::HandlePlussingBalance);
+        app.post("/admin/balance/insert", AdminController::handleAddingBalance);
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        app.get("/admin", ctx -> {
+            ctx.attribute("orders", OrderMapper.getAllOrders());
+        });
     }
 
-    private static void HandlePlussingBalance(Context ctx) throws DatabaseException  {
+    private static void handleAddingBalance(Context ctx) throws DatabaseException  {
         String email = ctx.formParam("email");
         int amount = Integer.parseInt(ctx.formParam("amount"));
         UserMapper.plusBalanceByEmail(email, amount);
+
+        ctx.redirect("/admin");
+    }
+
+    private static void handleNegatingBalance(Context ctx) throws DatabaseException  {
+        String email = ctx.formParam("email");
+        int amount = Integer.parseInt(ctx.formParam("amount"));
+        UserMapper.minusBalanceByEmail(email, amount);
 
         ctx.redirect("/admin");
     }
