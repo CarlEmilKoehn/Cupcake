@@ -26,9 +26,12 @@ public class AdminController {
 
         //--------------------------------------------------------------------------------------------------------------
 
+        /*
         app.get("/adminOrders", ctx -> {
             ctx.attribute("orders", OrderMapper.getAllOrders());
         });
+
+         */
     }
 
     private static void handleAddingBalance(Context ctx) throws DatabaseException  {
