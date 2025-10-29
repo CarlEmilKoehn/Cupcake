@@ -26,7 +26,7 @@ public class AdminController {
 
         //--------------------------------------------------------------------------------------------------------------
 
-        app.get("/admin", ctx -> {
+        app.get("/adminOrders", ctx -> {
             ctx.attribute("orders", OrderMapper.getAllOrders());
         });
     }
