@@ -4,42 +4,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Betaling</title>
+
     <link rel="stylesheet" href="/public/css/payment.css" th:href="@{/css/payment.css}"/>
     <script defer th:src="@{/js/payment.js}"></script>
 </head>
 <body>
-<div class="pay-wrap">
-    <h1 class="pay-header">Vælg betalingsmetode</h1>
+<h1 class="pay-header">Checkout</h1>
 
-    <section class="pay-methods">
-        <article class="pay-card" id="mpp">
-            <h3>MobilePay</h3>
-            <div class="row">
-                <input type="tel" id="mpPhone" placeholder="Telefonnummer (8 cifre)">
+<!-- Sektion 1: Leveringsmetode -->
+<section class="pay-section" id="delivery-section">
+    <h2 class="pay-subheader">Delivery method</h2>
+    <div class="pay-card">
+        <div class="row">
+            <label class="radio">
+                <input type="radio" name="deliveryMethod" id="pickup" value="pickup" checked>
+                Delivery (0 kr)
+            </label>
+        </div>
+        <div class="row">
+            <label class="radio">
+                <input type="radio" name="deliveryMethod" id="delivery" value="delivery">
+                Levering
+            </label>
+        </div>
+
+        <!-- Afhentningsvalg -->
+        <div id="pickup-time" class="mt" data-section="pickup">
+            <div class="row row-2">
+                <input type="date" id="pickupDate" aria-label="Pick-up date">
+                <input type="time" id="pickupTime" aria-label="Pick-up time" step="900">
             </div>
-            <div class="pay-actions">
-                <button class="btn btn-primary" id="mpPayBtn">Betal</button>
-            </div>
-        </article>
-        <article class="pay-card" id="card">
-            <h3>Kort</h3>
+        </div>
+
+        <!-- Leveringsadresse -->
+        <div id="delivery-address" class="mt" data-section="delivery" hidden>
             <div class="row">
-                <input type="text" id="ccNumber" placeholder="Kortnummer (16 cifre)">
+                <input type="text" id="addrStreet" placeholder="street name and number" autocomplete="address-line1" required>
             </div>
             <div class="row row-2">
-                <input type="text" id="ccExpiry" placeholder="Udløb (MM/YY)">
-                <input type="text" id="ccCvv" placeholder="CVV (3 cifre)">
+                <input type="text" id="addrZip" placeholder="Postal code." inputmode="numeric" maxlength="4" autocomplete="postal-code" required>
+                <input type="text" id="addrCity" placeholder="City" autocomplete="address-level2" required>
             </div>
-            <div class="pay-actions">
-                <button class="btn btn-primary" id="cardPayBtn">Betal</button>
+            <div class="row">
+                <input type="text" id="addrNotes" placeholder="Evt. leveringsbemærkning (valgfri)">
             </div>
-        </article>
-    </section>
-
-    <div class="pay-actions">
-        <a class="btn" href="homepage.html">Tilbage</a>
+        </div>
     </div>
-</div>
+</section>
 
+<!-- Sektion 2: Betalingsmetode (kun Kontant og Olsker Coins) -->
+<section class="pay-section" id="payment-section">
+    <h2 class="pay-subheader">Betalingsmetode</h2>
+
+    <div class="pay-method-list" role="radiogroup" aria-label="Vælg betalingsmetode">
+        <label class="pay-method-item">
+            <input type="radio" name="payMethod" value="cash" checked>
+            <span class="pay-method-label">Betal kontant</span>
+        </label>
+
+        <label class="pay-method-item">
+            <input type="radio" name="payMethod" value="coins">
+            <span class="pay-method-label">Betal med Olsker Coins</span>
+        </label>
+    </div>
+
+    <div class="pay-panels">
+        <div class="pay-panel" data-panel="cash">
+            <p>Du betaler ved afhentning/levering.</p>
+        </div>
+
+        <!-- Olsker Coins-panel -->
+        <div class="pay-panel" data-panel="coins" hidden>
+            <div class="coins-card">
+                <div class="coins-header">
+                    <span class="coins-title">Tilgængelig saldo</span>
+                    <!-- Rå værdi til JS (hvis du vil sammenligne i script) -->
+                    <span id="coinsBalanceRaw"
+                          th:data-balance="${session.currentUser.balance}"></span>
+                </div>
+
+                <div class="coins-balance">
+                    <!-- Pæn formatering; tilpas evt. hvis balance er decimal -->
+                    <strong id="coinsBalanceText"
+                            th:text="${#numbers.formatDecimal(session.currentUser.balance, 1, 'COMMA', 2, 'POINT')} + ' kr'">
+                        0,00 kr
+                    </strong>
+                </div>
+
+                <p class="hint">Beløbet trækkes direkte fra din saldo ved godkendelse.</p>
+
+                <!-- Valgfrit: lille statuslinje der kan bruges af JS ved utilstrækkelig saldo -->
+                <p id="coinsStatus" class="coins-status" aria-live="polite"></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Sektion 3: Ordresum -->
+    <section class="pay-section" id="summary-section">
+        <h2 class="pay-subheader">Ordresum</h2>
+        <div class="pay-card">
+            <div class="row row-split">
+                <span>Varer</span>
+                <span id="sumItems">0,00 kr</span>
+            </div>
+            <div class="row row-split">
+                <span>Levering</span>
+                <span id="sumShipping">0,00 kr</span>
+            </div>
+            <hr>
+            <div class="row row-split total">
+                <strong>Total</strong>
+                <strong id="sumTotal">0,00 kr</strong>
+            </div>
+            <div class="pay-actions mt">
+                <button class="btn btn-primary" id="payOrderBtn" type="button">Betal ordre</button>
+                <a class="btn" href="/homepage">Tilbage</a>
+            </div>
+            <p id="payMessage" class="pay-message" aria-live="polite"></p>
+        </div>
+    </section>
+</div>
 </body>
 </html>

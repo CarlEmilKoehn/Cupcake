@@ -69,5 +69,6 @@ public class OrderController {
         }
 
         ctx.result("Order successfully placed! Order ID: " + orderId);
+        app.get("/payment", ctx -> ctx.render("payment.html"));
     }
 }
