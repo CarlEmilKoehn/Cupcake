@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const basket = [];
 
     orderForm.addEventListener('submit', function (event) {
-        event.preventDefault(); // stop page reload
+        event.preventDefault();
 
         const amount = parseInt(document.getElementById('amount').value);
         const bottomSelect = document.getElementById('bottom');

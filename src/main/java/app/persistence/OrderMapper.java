@@ -83,4 +83,24 @@ public class OrderMapper {
 
 
     }
+
+    public static int getLastOrderId(String email) throws DatabaseException {
+        String sql = "SELECT id FROM public.\"order\" WHERE email = ? ORDER BY id DESC LIMIT 1";
+
+        try (Connection connection = ConnectionPool.getInstance().getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, email);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            } else {
+                throw new DatabaseException("No orders found for email: " + email);
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException("Could not retrieve last order ID: " + e.getMessage());
+        }
+    }
+
 }
