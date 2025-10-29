@@ -16,7 +16,6 @@ public class AdminController {
         app.before("/admin", AdminController::handleGuard);
         app.before("/admin/*", AdminController::handleGuard);
 
-
         app.get("/admin", ctx -> {
             ctx.attribute("customers", UserMapper.getAllUsers());
             ctx.render("homepageAdmin.html");
@@ -24,11 +23,14 @@ public class AdminController {
 
         app.post("/admin/balance/insert", AdminController::handleAddingBalance);
 
+
         //--------------------------------------------------------------------------------------------------------------
 
         /*
-        app.get("/adminOrders", ctx -> {
+
+        app.get("/admin/orders", ctx -> {
             ctx.attribute("orders", OrderMapper.getAllOrders());
+            ctx.render("homepageAdminOrders.html");
         });
 
          */

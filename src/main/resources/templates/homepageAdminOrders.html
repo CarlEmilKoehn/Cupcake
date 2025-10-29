@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cupcake</title>
+
+  <link rel="stylesheet" href="/public/css/homepage.css" th:href="@{/css/homepage.css}"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=La+Belle+Aurore&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<header class="header">
+  <img th:src="@{/images/cupcake-banner.png}" alt="Banner" class="header-img">
+
+  <nav class="navbar">
+
+    <button class="navButton" type="button" onclick="window.location.href='/logout'" th:onclick="|window.location.href='@{/logout}'|">logout</button>
+
+    <span th:text="${session.currentUser.email}">email@example.com</span>
+
+    <button class="navButton" type="button" onclick="window.location.href='/logout'" th:onclick="|window.location.href='@{/logout}'|">logout</button>
+  </nav>
+
+</header>
+
+<main class="main">
+  <form id="orderForm" class="order-form" th:action="@{/admin/orders}" method="post">
+
+    <div class="form-group">
+      <label for="emailSearch">Search for users (email)</label>
+      <input id="emailSearch" name="emailSearch" type="text" placeholder="user@domain.dk" th:value="${emailSearch}">
+    </div>
+
+    <button type="submit" class="add-btn">Search</button>
+
+
+  </form>
+
+
+
+</main>
+
+</body>
+</html>
