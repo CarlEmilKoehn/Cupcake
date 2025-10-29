@@ -36,6 +36,10 @@ public class UserController {
             return;
         }
 
+        if (!email.contains("@") || username.length() < 4 || username.length() > 12 || password.length() < 4 || password.length() > 40) {
+            return;
+        }
+
         if (UserMapper.getEmailExists(email)) {
             ctx.attribute("Error, user already exists");
             ctx.render("register.html");
