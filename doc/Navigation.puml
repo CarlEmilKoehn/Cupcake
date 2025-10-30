@@ -1,0 +1,6 @@
+@startuml
+title Cupcake App – State Diagram
+
+[*] -> login
+
+@enduml
