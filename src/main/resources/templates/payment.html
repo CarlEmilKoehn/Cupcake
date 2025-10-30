@@ -18,13 +18,13 @@
         <div class="row">
             <label class="radio">
                 <input type="radio" name="deliveryMethod" id="pickup" value="pickup" checked>
-                Delivery (0 kr)
+                Pick-up at the store
             </label>
         </div>
         <div class="row">
             <label class="radio">
                 <input type="radio" name="deliveryMethod" id="delivery" value="delivery">
-                Levering
+                Delivery
             </label>
         </div>
 
@@ -54,30 +54,30 @@
 
 <!-- Sektion 2: Betalingsmetode (kun Kontant og Olsker Coins) -->
 <section class="pay-section" id="payment-section">
-    <h2 class="pay-subheader">Betalingsmetode</h2>
+    <h2 class="pay-subheader">Payment method</h2>
 
     <div class="pay-method-list" role="radiogroup" aria-label="Vælg betalingsmetode">
         <label class="pay-method-item">
             <input type="radio" name="payMethod" value="cash" checked>
-            <span class="pay-method-label">Betal kontant</span>
+            <span class="pay-method-label">Cash/card in store</span>
         </label>
 
         <label class="pay-method-item">
             <input type="radio" name="payMethod" value="coins">
-            <span class="pay-method-label">Betal med Olsker Coins</span>
+            <span class="pay-method-label">Pay with balance</span>
         </label>
     </div>
 
     <div class="pay-panels">
         <div class="pay-panel" data-panel="cash">
-            <p>Du betaler ved afhentning/levering.</p>
+            <p>You pay at the store.</p>
         </div>
 
         <!-- Olsker Coins-panel -->
         <div class="pay-panel" data-panel="coins" hidden>
             <div class="coins-card">
                 <div class="coins-header">
-                    <span class="coins-title">Tilgængelig saldo</span>
+                    <span class="coins-title">Available Balance</span>
                     <!-- Rå værdi til JS (hvis du vil sammenligne i script) -->
                     <span id="coinsBalanceRaw"
                           th:data-balance="${session.currentUser.balance}"></span>
@@ -91,7 +91,7 @@
                     </strong>
                 </div>
 
-                <p class="hint">Beløbet trækkes direkte fra din saldo ved godkendelse.</p>
+                <p class="hint">The cost will be deducted from your balance after you click pay.</p>
 
                 <!-- Valgfrit: lille statuslinje der kan bruges af JS ved utilstrækkelig saldo -->
                 <p id="coinsStatus" class="coins-status" aria-live="polite"></p>
@@ -102,14 +102,14 @@
 
     <!-- Sektion 3: Ordresum -->
     <section class="pay-section" id="summary-section">
-        <h2 class="pay-subheader">Ordresum</h2>
+        <h2 class="pay-subheader">Order Total</h2>
         <div class="pay-card">
             <div class="row row-split">
-                <span>Varer</span>
+                <span>Items</span>
                 <span id="sumItems">0,00 kr</span>
             </div>
             <div class="row row-split">
-                <span>Levering</span>
+                <span>Delevery cost</span>
                 <span id="sumShipping">0,00 kr</span>
             </div>
             <hr>
@@ -118,8 +118,8 @@
                 <strong id="sumTotal">0,00 kr</strong>
             </div>
             <div class="pay-actions mt">
-                <button class="btn btn-primary" id="payOrderBtn" type="button">Betal ordre</button>
-                <a class="btn" href="/homepage">Tilbage</a>
+                <button class="btn btn-primary" id="payOrderBtn" type="button">Pay order</button>
+                <a class="btn" href="/homepage">Go back</a>
             </div>
             <p id="payMessage" class="pay-message" aria-live="polite"></p>
         </div>

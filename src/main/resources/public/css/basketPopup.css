@@ -15,7 +15,7 @@
     box-sizing: border-box;
 }
 
-.basket-modal__close{background:none;border:0;font-size:24px;cursor:pointer;margin-left:auto}
+.basket-modal__close{background:none;border:0;font-size:24px;font-family: Arial; cursor:pointer;margin-left:auto}
 
 .basket-modal__header{display:flex;align-items:center;gap:8px; flex-shrink: 0;}
 

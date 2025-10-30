@@ -42,9 +42,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Ask backend to resolve cupcakeId + price (authoritative)
         const r = await fetch(`/api/cupcakes/resolve?topping_id=${toppingId}&bottom_id=${bottomId}`);
-        if (!r.ok) { alert('Kunne ikke finde cupcake-kombinationen.'); return; }
+        if (!r.ok) { alert('Invalid cupcake combination'); return; }
         const data = await r.json();
-        if (!data?.cupcakeId || data.cupcakeId <= 0) { alert('Cupcake-kombinationen findes ikke.'); return; }
+        if (!data?.cupcakeId || data.cupcakeId <= 0) { alert('Invalid cupcake combination.'); return; }
 
         const cupcakeId = data.cupcakeId;
         const unitPrice = data.price; // integer DKK if that’s what you store
@@ -116,10 +116,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const line = (item.price * item.quantity) || 0;
             total += line;
             return `
-        <div class="basket-item" data-index="${idx}" style="display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.35rem 0;border-bottom:1px solid #eee">
+        <div class="basket-item" data-index="${idx}" style="display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.35rem 0;border-bottom:1px solid #eee; font-family: Arial;">
           <div>
             <div><strong>${item.quantity} × ${item.name}</strong></div>
-            <div>${item.price} kr / stk — linje: ${line} kr</div>
+            <div>${item.price} kr/item — linje: ${line} kr</div>
           </div>
           <button class="basket-remove" data-index="${idx}" aria-label="Remove item" title="Remove">
             🗑 Remove
@@ -129,9 +129,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         basketContent.innerHTML = `
       ${lines}
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:.75rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:.75rem; font-family: Arial;">
         <strong>I alt: ${total} kr</strong>
-        <div style="display:flex;gap:.5rem">
+        <div style="display:flex;gap:.5rem; font-family: Arial;">
           <button id="basket-clear" class="basket-clear" title="Clear basket">Clear basket</button>
         </div>
       </div>
@@ -169,9 +169,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Resolve cupcakeId + price (authoritative)
         const res = await fetch(`/api/cupcakes/resolve?topping_id=${toppingId}&bottom_id=${bottomId}`);
-        if (!res.ok) { alert('Kunne ikke finde cupcake-kombinationen.'); return; }
+        if (!res.ok) { alert('Could not find the cupcake combination'); return; }
         const data = await res.json();
-        if (!data?.cupcakeId || data.cupcakeId <= 0) { alert('Cupcake-kombinationen findes ikke.'); return; }
+        if (!data?.cupcakeId || data.cupcakeId <= 0) { alert('The cupcake-combination does not exist'); return; }
 
         const cupcakeId = data.cupcakeId;
         const unitPrice = data.price; // integer kr if your DB stores whole DKK
