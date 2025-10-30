@@ -4,6 +4,7 @@ import app.entities.Bottom;
 import app.entities.Topping;
 import app.exceptions.DatabaseException;
 import app.persistence.BottomMapper;
+import app.persistence.CupcakeMapper;
 import app.persistence.ToppingMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
@@ -19,7 +20,21 @@ public class CupcakeController {
             ctx.render("homepage.html");
         });
 
-        app.post("/cupcake/order", CupcakeController::handleOrder);
+        // CupcakeController.addRoutes(...)
+        app.get("/api/cupcakes/resolve", ctx -> {
+            int toppingId = Integer.parseInt(ctx.queryParam("topping_id"));
+            int bottomId  = Integer.parseInt(ctx.queryParam("bottom_id"));
+            Integer cupcakeId = CupcakeMapper.getCupcakeId(toppingId, bottomId);
+            if (cupcakeId == null) { ctx.status(404).json(java.util.Map.of("message","Not found")); return; }
+            int price = CupcakeMapper.getCupcakePriceById(cupcakeId);
+            ctx.json(java.util.Map.of("cupcakeId", cupcakeId, "price", price));
+        });
+
+
+
+// Render the payment page
+        app.get("/payment", ctx -> ctx.render("payment.html"));
+
 
     }
 
@@ -30,16 +45,5 @@ public class CupcakeController {
         ctx.attribute("toppingList", toppingList);
         ctx.attribute("bottomList", bottomList);
     }
-
-
-    private static void handleOrder(Context ctx) throws DatabaseException {
-        int toppingId = Integer.parseInt(ctx.formParam("topping_id"));
-        int bottomId = Integer.parseInt(ctx.formParam("bottom_id"));
-        int amount = Integer.parseInt(ctx.formParam("amount"));
-
-        ctx.result("Order placed: Topping: " + toppingId + ", Bottom: " + bottomId + ", Amount: " + amount);
-    }
-
-
 
 }

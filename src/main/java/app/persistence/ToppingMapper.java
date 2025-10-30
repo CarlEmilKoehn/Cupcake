@@ -34,7 +34,7 @@ public class ToppingMapper {
                 toppingList.add(new Topping(toppingId, name, price));
 
             }
-            System.out.println(List.of(toppingList));
+
             return toppingList;
 
         } catch (SQLException e) {
