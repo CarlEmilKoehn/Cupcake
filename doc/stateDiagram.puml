@@ -10,8 +10,8 @@ login --> homepageAdmin : Login as admin successful
 homepage --> login : Click "logout""
 homepageAdmin --> login : Click "logout"
 
-homepage --> quantity : Sets the amount of cupcakes one wants to order
-quantity --> homepage : amount of cupcakes has been set
+homepage --> setQuantity : Sets the amount of cupcakes one wants to order
+setQuantity --> homepage : amount of cupcakes has been set
 homepage --> setTopping : Sets the cupcakes topping
 setTopping --> homepage : Topping has been set
 homepage --> setBottom : Sets the cupcakes bottom
