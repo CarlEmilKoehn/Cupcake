@@ -20,3 +20,16 @@
 .row-2 { grid-template-columns: 1fr 1fr; }
 
 input, select { padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
+
+/* CSS */
+.coins-card { border: 1px solid #e5e5e5; border-radius: 10px; padding: 14px; background: #fafafa; }
+.coins-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.coins-title { font-weight: 600; color: #333; }
+.coins-balance { font-size: 1.4rem; color: #111; }
+.coins-status { margin-top: 8px; color: #b00020; }
+#coinsBalanceRaw { display: none; }
+.pay-method-list { display: grid; gap: 8px; }
+.pay-method-item { display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; cursor: pointer; }
+.pay-method-item input[type="radio"] { accent-color: #111; }
+.pay-method-item:has(input:checked) { border-color: #111; box-shadow: 0 0 0 2px #1111; }
+.pay-panel { margin-top: 12px; padding: 12px; border: 1px dashed #ddd; border-radius: 8px; }

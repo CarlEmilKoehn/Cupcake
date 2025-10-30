@@ -108,6 +108,27 @@ public class UserMapper {
         }
     }
 
+    public static boolean debitBalance(String email, int amount) throws DatabaseException {
+        String sql =
+                "UPDATE public.\"user\" " +
+                        "SET balance = balance - ? " +
+                        "WHERE email = ? AND balance >= ? " +
+                        "RETURNING balance";
+        try (var con = ConnectionPool.getInstance().getConnection();
+             var ps = con.prepareStatement(sql)) {
+            ps.setInt(1, amount);
+            ps.setString(2, email);
+            ps.setInt(3, amount);
+            try (var rs = ps.executeQuery()) {
+                return rs.next(); // succeeds only if there was enough balance
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Could not connect to DB: ", e.getMessage());
+        }
+    }
+
+
+
     public static boolean getEmailExists(String email) throws DatabaseException {
 
         String sql = "SELECT email FROM public.\"user\" WHERE email = ?";
