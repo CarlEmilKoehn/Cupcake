@@ -40,6 +40,8 @@
 
         <span th:text="${session.currentUser.email}">email@example.com</span>
 
+        <button class="navButton" type="button" onclick="window.location.href='/logout'" th:onclick="|window.location.href='@{/logout}'|">logout</button>
+
         <button id="basketBtn" class="navButton">Basket</button>
     </nav>
 
