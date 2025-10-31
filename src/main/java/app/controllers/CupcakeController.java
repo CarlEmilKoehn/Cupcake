@@ -31,7 +31,6 @@ public class CupcakeController {
 
         app.get("/payment", ctx -> ctx.render("payment.html"));
 
-
     }
 
     private static void showToppingsAndBottoms(Context ctx) throws DatabaseException {

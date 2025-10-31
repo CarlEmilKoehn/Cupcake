@@ -12,7 +12,17 @@ body {
     min-height: 100vh;
 }
 
+.site-header {
+    width: 100%;
+    height: 25vh;
+    background-color: #3c1460;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: flex;
 
+    background-image: url("../images/cupcake-banner.png");
+}
 
 .header-img {
     width: 100%;

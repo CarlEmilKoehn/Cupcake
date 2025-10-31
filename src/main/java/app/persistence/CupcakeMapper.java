@@ -15,7 +15,6 @@ import static app.persistence.ToppingMapper.getToppingFromId;
 
 public class CupcakeMapper {
 
-    // CupcakeMapper.java
     public static Integer getCupcakeId(int toppingId, int bottomId) throws DatabaseException {
         String sql = "SELECT id FROM public.cupcake WHERE topping_id = ? AND bottom_id = ?";
         try (var con = ConnectionPool.getInstance().getConnection();

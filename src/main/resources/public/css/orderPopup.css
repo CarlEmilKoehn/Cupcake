@@ -16,3 +16,5 @@
 .order-modal__btn{padding:8px 12px;border:1px solid #ddd;border-radius:6px;background:#fff;cursor:pointer}
 
 .order-modal__btn--primary{background:#3c1460;color:#fff;border-color:#3c1460;text-decoration:none}
+
+.order-entry{font-family: Arial;}

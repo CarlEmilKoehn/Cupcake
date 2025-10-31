@@ -42,7 +42,7 @@ public class OrderController {
                     ctx.status(400).result("Invalid cupcakeId"); return;
                 }
                 int id = (int) it.cupcakeId();
-                int price = CupcakeMapper.getCupcakePriceById(id); // uses cupcake_price
+                int price = CupcakeMapper.getCupcakePriceById(id);
                 itemsTotal += price * it.quantity();
                 cupcakeIds.add(id);
                 quantities.add(it.quantity());
