@@ -41,7 +41,7 @@ public class UserController {
         }
 
         if (UserMapper.getEmailExists(email)) {
-            ctx.attribute("Error, user already exists");
+            ctx.attribute("registerError", "Error, user already exists");
             ctx.render("register.html");
             return;
         }
@@ -75,7 +75,7 @@ public class UserController {
             ctx.redirect("/homepage");
 
         } else {
-            ctx.attribute("Error, wrong email or password");
+            ctx.attribute("loginError", "Error, wrong email or password");
             ctx.render("login.html");
         }
     }
