@@ -4,4 +4,3 @@ Authors: Oliver Møller Jensen (cph-om96@stud.ek.dk), Dino Saldic (cph-ds303@stu
 
 Video-demo af hjemmesiden: https://youtu.be/337ansEAlk8
 
-plantuml -tsvg doc/stateDiagram.puml
