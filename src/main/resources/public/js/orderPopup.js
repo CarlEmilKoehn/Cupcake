@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function openModal() {
         modal.style.display = 'block';
-        loadOrders(); // ✅ Load previous orders when modal opens
+        loadOrders();
     }
 
     function closeModal() {

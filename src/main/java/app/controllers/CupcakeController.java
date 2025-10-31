@@ -20,7 +20,6 @@ public class CupcakeController {
             ctx.render("homepage.html");
         });
 
-        // CupcakeController.addRoutes(...)
         app.get("/api/cupcakes/resolve", ctx -> {
             int toppingId = Integer.parseInt(ctx.queryParam("topping_id"));
             int bottomId  = Integer.parseInt(ctx.queryParam("bottom_id"));
@@ -30,9 +29,6 @@ public class CupcakeController {
             ctx.json(java.util.Map.of("cupcakeId", cupcakeId, "price", price));
         });
 
-
-
-// Render the payment page
         app.get("/payment", ctx -> ctx.render("payment.html"));
 
 

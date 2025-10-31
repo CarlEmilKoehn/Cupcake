@@ -1,4 +1,3 @@
-// /public/js/basketPopup.js
 document.addEventListener('DOMContentLoaded', function () {
     const orderForm = document.getElementById('orderForm');
     const basketBtn = document.getElementById('basketBtn');
@@ -40,14 +39,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const bottomName = bottomSelect.options[bottomSelect.selectedIndex].text.split(' - ')[0];
         const toppingName = toppingSelect.options[toppingSelect.selectedIndex].text.split(' - ')[0];
 
-        // Ask backend to resolve cupcakeId + price (authoritative)
         const r = await fetch(`/api/cupcakes/resolve?topping_id=${toppingId}&bottom_id=${bottomId}`);
         if (!r.ok) { alert('Invalid cupcake combination'); return; }
         const data = await r.json();
         if (!data?.cupcakeId || data.cupcakeId <= 0) { alert('Invalid cupcake combination.'); return; }
 
         const cupcakeId = data.cupcakeId;
-        const unitPrice = data.price; // integer DKK if that’s what you store
+        const unitPrice = data.price;
 
         const basket = getBasket();
         basket.push({
@@ -62,7 +60,6 @@ document.addEventListener('DOMContentLoaded', function () {
         basketModal.style.display = 'block';
     });
 
-    // modal open/close
     const openBtn = document.getElementById('basketBtn');
     const backdrop = basketModal.querySelector('.basket-modal__backdrop');
     const closeBtn = basketModal.querySelector('.basket-modal__close');
@@ -71,7 +68,6 @@ document.addEventListener('DOMContentLoaded', function () {
     closeBtn.addEventListener('click', () => basketModal.style.display = 'none');
 });
 
-// /public/js/basketPopup.js
 document.addEventListener('DOMContentLoaded', function () {
     const orderForm = document.getElementById('orderForm');
     const basketBtn = document.getElementById('basketBtn');
@@ -81,14 +77,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const backdrop = basketModal.querySelector('.basket-modal__backdrop');
     const closeBtn = basketModal.querySelector('.basket-modal__close');
 
-    // ---- storage helpers
     function getBasket() {
         try { return JSON.parse(localStorage.getItem('basket') || '[]'); }
         catch { return []; }
     }
     function setBasket(arr) {
         localStorage.setItem('basket', JSON.stringify(arr));
-        // fire a storage-like event for other tabs/pages if needed
         document.dispatchEvent(new CustomEvent('basket:updated', { detail: arr }));
     }
     function removeAt(index) {
@@ -102,7 +96,6 @@ document.addEventListener('DOMContentLoaded', function () {
         setBasket([]);
     }
 
-    // ---- render UI (+ remove buttons)
     function renderBasket() {
         const basket = getBasket();
         if (!basket.length) {
@@ -138,7 +131,6 @@ document.addEventListener('DOMContentLoaded', function () {
     `;
     }
 
-    // ---- event delegation for remove / clear
     basketContent.addEventListener('click', (e) => {
         const removeBtn = e.target.closest('.basket-remove');
         if (removeBtn) {
@@ -153,7 +145,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // ---- add to basket (resolve real cupcakeId + price first)
     orderForm.addEventListener('submit', async function (event) {
         event.preventDefault();
 
@@ -167,14 +158,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const bottomName = bottomSelect.options[bottomSelect.selectedIndex].text.split(' - ')[0];
         const toppingName = toppingSelect.options[toppingSelect.selectedIndex].text.split(' - ')[0];
 
-        // Resolve cupcakeId + price (authoritative)
         const res = await fetch(`/api/cupcakes/resolve?topping_id=${toppingId}&bottom_id=${bottomId}`);
         if (!res.ok) { alert('Could not find the cupcake combination'); return; }
         const data = await res.json();
         if (!data?.cupcakeId || data.cupcakeId <= 0) { alert('The cupcake-combination does not exist'); return; }
 
         const cupcakeId = data.cupcakeId;
-        const unitPrice = data.price; // integer kr if your DB stores whole DKK
+        const unitPrice = data.price;
 
         const basket = getBasket();
         basket.push({
@@ -189,7 +179,6 @@ document.addEventListener('DOMContentLoaded', function () {
         basketModal.style.display = 'block';
     });
 
-    // ---- modal open/close
     function openModal() { basketModal.style.display = 'block'; renderBasket(); }
     function closeModal() { basketModal.style.display = 'none'; }
 
@@ -197,7 +186,6 @@ document.addEventListener('DOMContentLoaded', function () {
     backdrop.addEventListener('click', closeModal);
     closeBtn.addEventListener('click', closeModal);
 
-    // optional: keep basket fresh if another page changed it
     document.addEventListener('basket:updated', () => {
         if (basketModal.style.display === 'block') renderBasket();
     });

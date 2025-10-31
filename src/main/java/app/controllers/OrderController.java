@@ -14,10 +14,8 @@ public class OrderController {
 
     public static void addRouting(Javalin app) {
 
-        // Show order modal (HTML already loaded in homepage)
         app.get("/viewOrder", ctx -> ctx.render("viewOrder.html"));
 
-        // GET /api/orders -> JSON for orderPopup.js
         app.get("/api/orders", ctx -> {
             User user = ctx.sessionAttribute("currentUser");
             if (user == null) { ctx.status(401).result("Please log in"); return; }
@@ -25,7 +23,6 @@ public class OrderController {
             ctx.json(orders);
         });
 
-        // OrderController.addRouting(...)
         record Item(long cupcakeId, int quantity) {}
         record PayReq(String payMethod, Object delivery, int shippingCents, java.util.List<Item> items) {}
 
@@ -36,7 +33,6 @@ public class OrderController {
             PayReq req = ctx.bodyAsClass(PayReq.class);
             if (req.items() == null || req.items().isEmpty()) { ctx.status(400).result("No items"); return; }
 
-            // Validate & compute authoritative total from DB
             java.util.List<Integer> cupcakeIds = new java.util.ArrayList<>();
             java.util.List<Integer> quantities = new java.util.ArrayList<>();
             int itemsTotal = 0;
@@ -57,15 +53,12 @@ public class OrderController {
             if ("coins".equalsIgnoreCase(req.payMethod())) {
                 boolean ok = UserMapper.debitBalance(user.getEmail(), grandTotal);
                 if (!ok) { ctx.status(400).result("Insufficient balance"); return; }
-                user = UserMapper.getUserByEmail(user.getEmail()); // make sure this reads "Balance"
+                user = UserMapper.getUserByEmail(user.getEmail());
                 ctx.sessionAttribute("currentUser", user);
             }
 
             int orderId = OrderMapper.createOrder(user.getEmail(), cupcakeIds, quantities);
             ctx.status(200).result("Order created successfully! ID: " + orderId);
         });
-
-
-
     }
 }
