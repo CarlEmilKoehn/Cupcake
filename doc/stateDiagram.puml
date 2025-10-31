@@ -1,0 +1,43 @@
+@startuml
+[*] --> login
+
+login --> register : Choose to register
+register --> login : Has now been registered
+
+login --> homepage : Login successful
+login --> homepageAdmin : Login as admin successful
+
+homepage --> login : Click "logout""
+homepageAdmin --> login : Click "logout"
+
+homepage --> setQuantity : Sets the amount of cupcakes one wants to order
+setQuantity --> homepage : amount of cupcakes has been set
+homepage --> setTopping : Sets the cupcakes topping
+setTopping --> homepage : Topping has been set
+homepage --> setBottom : Sets the cupcakes bottom
+setBottom --> homepage : Bottom has been set
+
+homepage --> addToBasket : Checks if quantity, bottom and topping has been set, if true then: add to basket
+homepage --> viewBasket : View what you have added to basket
+addToBasket --> viewBasket : Adds items to basket
+homepage --> viewBalance : Can see the users current balance
+giveMoney --> viewBalance : updates the users balance
+
+homepage --> viewOrders : shows earlier purchases
+
+viewBasket --> checkout
+checkout --> delivery : Click to add delivery strategy
+checkout --> pickup : Click to add delivery strategy
+
+delivery --> checkout : Has chosen delivery strategy
+pickup --> checkout : Has chosen delivery strategy
+checkout --> pay : pay when a delivery strategy has been chosen
+pay --> viewOrders : added a new order
+
+homepageAdmin --> dropDown : Shows users
+dropDown --> homepageAdmin : Clicked to choose user
+homepageAdmin --> insert : insets a given amount of money on a users account (min 1 | max 999)
+insert --> homepageAdmin : Inserted a specific amount of money
+homepageAdmin --> giveMoney : adds the given balance to a users balance
+
+@enduml

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,10 +10,12 @@
     <link rel="stylesheet" href="/public/css/basketPopup.css" th:href="@{/css/basketPopup.css}"/>
     <link rel="stylesheet" href="/public/css/orderPopup.css" th:href="@{/css/orderPopup.css}"/>
     <link rel="stylesheet" href="/public/css/balancePopup.css" th:href="@{/css/balancePopup.css}"/>
+    <link rel="stylesheet" href="/public/css/payment.css" th:href="@{/css/payment.css}"/>
 
     <script defer th:src="@{/js/basketPopup.js}"></script>
     <script defer th:src="@{/js/orderPopup.js}"></script>
     <script defer th:src="@{/js/balancePopup.js}"></script>
+    <script defer th:src="@{/js/payment.js}"></script>
 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,13 +25,22 @@
 </head>
 <body>
 <header class="header">
-    <img src="../public/images/cupcake-banner.png" alt="Banner" class="header-img">
+    <img th:src="@{/images/cupcake-banner.png}" alt="Banner" class="header-img">
 
     <nav class="navbar">
         <button id="orderBtn" class="navButton">Orders</button>
-        <button id="balanceBtn" class="navButton">Balance</button>
+
+        <div class="balance-group">
+            <button id="balanceBtn" class="navButton">Balance</button>
+
+            <input type="text" class="balance-box" name="balance"
+                   th:value="${session.currentUser.balance}" readonly >
+
+        </div>
 
         <span th:text="${session.currentUser.email}">email@example.com</span>
+
+        <button class="navButton" type="button" onclick="window.location.href='/logout'" th:onclick="|window.location.href='@{/logout}'|">logout</button>
 
         <button id="basketBtn" class="navButton">Basket</button>
     </nav>
@@ -36,7 +48,7 @@
 </header>
 
 <main class="main">
-    <form action="/cupcake/order" method="post" class="order-form">
+    <form id="orderForm" class="order-form">
         <div class="form-group">
             <label for="amount">Amount</label>
             <input type="number" id="amount" name="amount" min="1" max="50" value="1" required>
@@ -46,7 +58,8 @@
             <label for="bottom">Bottom</label>
             <select name="bottom_id" id="bottom">
                 <option th:each="bottom : ${bottomList}"
-                        th:value="${bottom.name}"
+                        th:value="${bottom.bottomId}"
+                        th:data-price="${bottom.price}"
                         th:text="${bottom.name} + ' - ' + ${bottom.price} + 'dkk'">
                 </option>
             </select>
@@ -56,7 +69,8 @@
             <label for="topping">Topping</label>
             <select name="topping_id" id="topping">
                 <option th:each="topping : ${toppingList}"
-                        th:value="${topping.name}"
+                        th:value="${topping.toppingId}"
+                        th:data-price="${topping.price}"
                         th:text="${topping.name} + ' - ' + ${topping.price} + 'dkk'">
                 </option>
             </select>
@@ -77,7 +91,7 @@
             <p>Basket is empty.</p>
         </div>
         <footer class="basket-modal__footer">
-            <a href="/cupcake/order" class="basket-modal__btn basket-modal__btn--primary">Go to checkout</a>
+            <a href="/payment" class="basket-modal__btn basket-modal__btn--primary">Go to checkout</a>
         </footer>
     </div>
 </div>
@@ -105,9 +119,6 @@
         <div class="balance-modal__content">
             <p>Balance is empty.</p>
         </div>
-        <footer class="balance-modal__footer">
-            <a href="payment.html" class="balance-modal__btn balance-modal__btn--primary">Add balance.</a>
-        </footer>
     </div>
 </div>
 </body>

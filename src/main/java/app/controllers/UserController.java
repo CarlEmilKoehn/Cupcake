@@ -5,6 +5,7 @@ import app.exceptions.DatabaseException;
 import app.persistence.UserMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+import org.jetbrains.annotations.NotNull;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class UserController {
@@ -22,6 +23,7 @@ public class UserController {
 
         app.get("/logout", ctx -> ctx.render("login.html"));
         app.post("/logout", UserController::logout);
+
     }
 
     private static void handleRegister(Context ctx) throws DatabaseException {
@@ -34,8 +36,12 @@ public class UserController {
             return;
         }
 
+        if (!email.contains("@") || username.length() < 4 || username.length() > 12 || password.length() < 4 || password.length() > 40) {
+            return;
+        }
+
         if (UserMapper.getEmailExists(email)) {
-            ctx.attribute("Error, user already exists");
+            ctx.attribute("registerError", "Error, user already exists");
             ctx.render("register.html");
             return;
         }
@@ -60,9 +66,16 @@ public class UserController {
         if (storedPassword != null && BCrypt.checkpw(password, storedPassword)) {
             User user = UserMapper.getUserByEmail(email);
             ctx.sessionAttribute("currentUser", user);
-                ctx.redirect("/homepage");
+
+            if (user != null && user.getRole().equalsIgnoreCase("admin")) {
+                ctx.redirect("/admin");
+                return;
+            }
+
+            ctx.redirect("/homepage");
+
         } else {
-            ctx.attribute("Error, wrong email or password");
+            ctx.attribute("loginError", "Error, wrong email or password");
             ctx.render("login.html");
         }
     }

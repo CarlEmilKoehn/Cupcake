@@ -1,6 +1,7 @@
 package app;
 
 import app.config.ThymeleafConfig;
+import app.controllers.AdminController;
 import app.controllers.CupcakeController;
 import app.controllers.OrderController;
 import app.persistence.ConnectionPool;
@@ -30,5 +31,6 @@ public class Main
         UserController.addRoutes(app);
         CupcakeController.addRoutes(app);
         OrderController.addRouting(app);
+        AdminController.addRoutes(app);
     }
 }
