@@ -153,7 +153,41 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // ---- add to basket (resolve real cupcakeId + price first)
+    orderForm.addEventListener('submit', async function (event) {
+        event.preventDefault();
 
+        const quantity = parseInt(document.getElementById('amount').value, 10);
+        const bottomSelect = document.getElementById('bottom');
+        const toppingSelect = document.getElementById('topping');
+
+        const bottomId = parseInt(bottomSelect.value, 10);
+        const toppingId = parseInt(toppingSelect.value, 10);
+
+        const bottomName = bottomSelect.options[bottomSelect.selectedIndex].text.split(' - ')[0];
+        const toppingName = toppingSelect.options[toppingSelect.selectedIndex].text.split(' - ')[0];
+
+        // Resolve cupcakeId + price (authoritative)
+        const res = await fetch(`/api/cupcakes/resolve?topping_id=${toppingId}&bottom_id=${bottomId}`);
+        if (!res.ok) { alert('Could not find the cupcake combination'); return; }
+        const data = await res.json();
+        if (!data?.cupcakeId || data.cupcakeId <= 0) { alert('The cupcake-combination does not exist'); return; }
+
+        const cupcakeId = data.cupcakeId;
+        const unitPrice = data.price; // integer kr if your DB stores whole DKK
+
+        const basket = getBasket();
+        basket.push({
+            cupcake_id: cupcakeId,
+            quantity,
+            name: `${toppingName} + ${bottomName}`,
+            price: unitPrice
+        });
+        setBasket(basket);
+
+        renderBasket();
+        basketModal.style.display = 'block';
+    });
 
     // ---- modal open/close
     function openModal() { basketModal.style.display = 'block'; renderBasket(); }
