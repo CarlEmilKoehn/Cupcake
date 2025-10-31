@@ -8,6 +8,7 @@ html, body {
     overflow: hidden;
 }
 
+
 input, button {
     font-family: "La Belle Aurore", cursive;
     color: #000000;
@@ -82,4 +83,10 @@ button {
     display:flex;
     flex-direction:column; gap:2vh;
     width:30%;
+}
+
+.error {
+    font-family: "La Belle Aurore", cursive;
+    color: deeppink;
+    margin-top: 0.5rem;
 }

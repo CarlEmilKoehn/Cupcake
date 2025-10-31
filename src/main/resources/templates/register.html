@@ -25,7 +25,7 @@
 
             <div class="button-row">
                 <button type="submit" form="registerForm">Register</button>
-                <p class="error" th:if="${registerError}" th:text="${registerError}"></p>
+                <p class="error" th:if="${loginError}" th:text="${registerError}"></p>
                 <button type="button" onclick="window.location.href='/login'" th:onclick="|window.location.href='@{/login}'|">Back</button>
             </div>
         </div>
