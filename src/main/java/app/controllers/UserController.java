@@ -5,8 +5,9 @@ import app.exceptions.DatabaseException;
 import app.persistence.UserMapper;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-import org.jetbrains.annotations.NotNull;
 import org.mindrot.jbcrypt.BCrypt;
+
+import java.util.regex.Pattern;
 
 public class UserController {
 
@@ -28,15 +29,25 @@ public class UserController {
 
     private static void handleRegister(Context ctx) throws DatabaseException {
 
-        String email = ctx.formParam("email");
-        String username = ctx.formParam("username");
-        String password = ctx.formParam("password");
+        String email = ctx.formParam("email").trim();
+        String username = ctx.formParam("username").trim();
+        String password = ctx.formParam("password").trim();
 
-        if (email == null || username == null || password == null || email.isEmpty() || username.isEmpty() || password.isEmpty()) {
+        if (email.isEmpty() || username.isEmpty() || password.isEmpty()) {
+            ctx.attribute("registerError", "All fields are required");
+            ctx.render("register.html");
             return;
         }
 
-        if (!email.contains("@") || username.length() < 4 || username.length() > 12 || password.length() < 4 || password.length() > 40) {
+        if (username.length() < 4 || username.length() > 12 || password.length() < 4 || password.length() > 40) {
+            ctx.attribute("registerError", "Username or password length invalid");
+            ctx.render("register.html");
+            return;
+        }
+
+        if (!Pattern.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", email)) {
+            ctx.attribute("registerError", "Invalid email format");
+            ctx.render("register.html");
             return;
         }
 
@@ -54,10 +65,10 @@ public class UserController {
 
     private static void handleLogin(Context ctx) throws DatabaseException{
 
-        String email = ctx.formParam("email");
-        String password = ctx.formParam("password");
+        String email = ctx.formParam("email").trim();
+        String password = ctx.formParam("password").trim();
 
-        if (email == null || password == null || email.isEmpty() || password.isEmpty()) {
+        if (email.isEmpty() || password.isEmpty()) {
             return;
         }
 
